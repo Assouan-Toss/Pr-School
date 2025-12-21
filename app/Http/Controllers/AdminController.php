@@ -10,6 +10,14 @@ use App\Models\Bulletin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\CoursController;
+use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\BulletinController;
+use App\Http\Controllers\AnnonceController;
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\ProfesseurController;
+use App\Http\Controllers\EleveController;
+
 
 class AdminController extends Controller
 {

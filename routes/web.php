@@ -5,6 +5,15 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfesseurController;
 use App\Http\Controllers\EleveController;
+use App\Http\Controllers\CoursController;
+use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\BulletinController;
+use App\Http\Controllers\AnnonceController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+
+
+
 
 
 
@@ -12,6 +21,20 @@ use App\Http\Controllers\EleveController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Route pour la connexion
+Route::get('/connexion', function () {
+    return view('auth.connexion');
+})->name('connexion');
+Route::post('/connexion', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('connexion.post');
+
+// Route::get('/connexion', function () {
+//     return view('auth.connexion');
+// })->name('connexion');
+// Route::post('/connexion', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('connexion.post');
+
+
+
 
 
 //les routes complet des admins
