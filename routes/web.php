@@ -8,6 +8,9 @@ use App\Http\Controllers\EleveController;
 use App\Http\Controllers\CoursController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AnnonceController;
+use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\BibliothequeController;
+
 
 // ====================
 // ROUTES PUBLIQUES
@@ -28,10 +31,10 @@ Route::post('/connexion', [LoginController::class, 'login'])->name('connexion.po
 Route::middleware(['auth'])->group(function () {
     
     // ====================
-    // ROUTES ANNONCES (AJOUTÉ ICI)
+    // ROUTES ANNONCES
     // ====================
     
-    // Routes annonces spécifiques AVANT la route avec paramètre {id}
+    // Routes annonces spécifiques (professeurs)
     Route::middleware(['isProfesseur'])->group(function () {
         Route::get('/annonces/create', [AnnonceController::class, 'create'])->name('annonces.create');
         Route::post('/annonces/store', [AnnonceController::class, 'store'])->name('annonces.store');
@@ -40,28 +43,51 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/annonces/{id}', [AnnonceController::class, 'destroy'])->name('annonces.destroy');
     });
     
-    // Routes annonces générales (APRÈS les spécifiques)
+    // Routes annonces générales
     Route::get('/annonces', [AnnonceController::class, 'index'])->name('annonces.index');
     Route::get('/annonces/{id}', [AnnonceController::class, 'show'])->name('annonces.show');
     
     // ====================
-    // ROUTES COURS SPÉCIFIQUES
+    // ROUTES COURS
     // ====================
     
+    // Route générale d'abord
+    Route::get('/cours', [CoursController::class, 'index'])->name('cours.index');
+    
+    // Routes spécifiques professeurs
     Route::middleware(['isProfesseur'])->group(function () {
         Route::get('/cours/create', [CoursController::class, 'create'])->name('cours.create');
         Route::post('/cours/store', [CoursController::class, 'store'])->name('cours.store');
     });
     
-    // ====================
-    // ROUTES AVEC PARAMÈTRES
-    // ====================
+    // Route avec paramètre en DERNIER
     Route::get('/cours/{id}', [CoursController::class, 'show'])->name('cours.show');
     
     // ====================
-    // ROUTES GÉNÉRALES
+    // ROUTES DOCUMENTS (DÉPLACÉ ICI)
     // ====================
-    Route::get('/cours', [CoursController::class, 'index'])->name('cours.index');
+    Route::middleware(['isProfesseur'])->group(function () {
+        Route::get('/documents/create', [DocumentController::class, 'create'])
+            ->name('documents.create');
+        Route::post('/documents/store', [DocumentController::class, 'store'])
+            ->name('documents.store');
+    });
+    
+    // ====================
+    // ROUTE BIBLIOTHÈQUE (DÉPLACÉ ICI)
+    // ====================
+    Route::get('/bibliotheque', function () {
+        return view('bibliotheque.index');
+    })->name('bibliotheque.index');
+
+
+    Route::middleware(['auth'])->group(function () {
+    Route::get('/bibliotheque', [BibliothequeController::class, 'index'])
+        ->name('bibliotheque.index');
+    });
+
+    
+
     
     // ====================
     // ROUTES PAR RÔLE
@@ -83,7 +109,6 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/bulletins/upload', [AdminController::class, 'uploadBulletin'])->name('admin.bulletins.upload');
         Route::post('/message/send', [MessageController::class, 'send'])->name('admin.message.send');
         
-        // Routes annonces pour admin aussi (si besoin)
         Route::get('/annonces', [AdminController::class, 'annonces'])->name('admin.annonces');
     });
     
@@ -96,7 +121,6 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/cours/add', [ProfesseurController::class, 'addCours'])->name('prof.cours.add');
         Route::post('/message/send', [MessageController::class, 'send'])->name('prof.message.send');
         
-        // Routes annonces pour prof
         Route::get('/annonces', [ProfesseurController::class, 'annonces'])->name('prof.annonces');
     });
     
@@ -117,7 +141,7 @@ Route::middleware(['auth'])->group(function () {
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // ====================
-// ROUTES DE FALLBACK (TOUJOURS EN DERNIER)
+// ROUTES DE FALLBACK (TOUJOURS EN DERNIER - ABSOLUMENT)
 // ====================
 Route::fallback(function () {
     return response()->view('errors.404', [], 404);
