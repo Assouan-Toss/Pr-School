@@ -10,7 +10,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AnnonceController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\BibliothequeController;
-
+use Illuminate\Support\Facades\Storage;
 
 // ====================
 // ROUTES PUBLIQUES
@@ -86,6 +86,10 @@ Route::middleware(['auth'])->group(function () {
         ->name('bibliotheque.index');
     });
 
+    Route::get('/documents/{document}/download', [DocumentController::class, 'download'])
+    ->name('documents.download');
+
+
     
 
     
@@ -140,9 +144,63 @@ Route::middleware(['auth'])->group(function () {
 // ====================
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// ====================
-// ROUTES DE FALLBACK (TOUJOURS EN DERNIER - ABSOLUMENT)
-// ====================
-Route::fallback(function () {
-    return response()->view('errors.404', [], 404);
+
+/*
+|--------------------------------------------------------------------------
+| MESSAGES – Tous les utilisateurs authentifiés
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware('auth')->group(function () {
+
+    // Redirection /messages → inbox
+    Route::get('/messages', function () {
+        return redirect()->route('messages.inbox');
+    })->name('messages.index');
+
+    // Boîte de réception
+    Route::get('/messages/inbox', [MessageController::class, 'inbox'])
+        ->name('messages.inbox');
+
+    // Messages envoyés
+    Route::get('/messages/sent', [MessageController::class, 'sent'])
+        ->name('messages.sent');
+
+    // Nouveau message (formulaire)
+    Route::get('/messages/create', [MessageController::class, 'create'])
+        ->name('messages.create');
 });
+
+Route::middleware(['auth', 'isAdmin'])->group(function () {
+    Route::post('/admin/message/send', [MessageController::class, 'send'])
+        ->name('admin.message.send');
+});
+
+Route::middleware(['auth', 'isProfesseur'])->group(function () {
+    Route::post('/prof/message/send', [MessageController::class, 'send'])
+        ->name('prof.message.send');
+});
+
+Route::middleware(['auth', 'isEleve'])->group(function () {
+    Route::post('/eleve/message/send', [MessageController::class, 'send'])
+        ->name('eleve.message.send');
+});
+
+
+
+Route::middleware('auth')->group(function () {
+
+    Route::get('/messages', [MessageController::class, 'inbox'])
+        ->name('messages.inbox');
+
+    Route::get('/messages/sent', [MessageController::class, 'sent'])
+        ->name('messages.sent');
+
+    Route::get('/messages/create', [MessageController::class, 'create'])
+        ->name('messages.create');
+
+    Route::post('/messages/send', [MessageController::class, 'send'])
+        ->name('messages.send');
+
+});
+

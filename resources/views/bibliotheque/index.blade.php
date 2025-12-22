@@ -83,11 +83,12 @@
                         <p class="text-muted small">
                             Ajouté par {{ $doc->auteur->name ?? '—' }}
                         </p>
-                        <a href="{{ asset('storage/' . $doc->fichier) }}"
+                        <a href="{{ route('documents.download', $doc->id) }}" 
                            class="btn-download"
-                           target="_blank">
+                           download>
                             Télécharger
                         </a>
+
                     </div>
                 </div>
             </div>
