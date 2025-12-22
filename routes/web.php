@@ -6,119 +6,119 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfesseurController;
 use App\Http\Controllers\EleveController;
 use App\Http\Controllers\CoursController;
-use App\Http\Controllers\DocumentController;
-use App\Http\Controllers\BulletinController;
-use App\Http\Controllers\AnnonceController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\AnnonceController;
 
-
-
-
-
-
-
+// ====================
+// ROUTES PUBLIQUES
+// ====================
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
-// Route pour la connexion
 Route::get('/connexion', function () {
     return view('auth.connexion');
 })->name('connexion');
-Route::post('/connexion', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('connexion.post');
 
-// Route::get('/connexion', function () {
-//     return view('auth.connexion');
-// })->name('connexion');
-// Route::post('/connexion', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('connexion.post');
+Route::post('/connexion', [LoginController::class, 'login'])->name('connexion.post');
 
-
-
-
-
-//les routes complet des admins
-Route::middleware(['auth', 'isAdmin'])->group(function () {
-
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
-
-    // Classes
-    Route::post('/admin/classes/create', [AdminController::class, 'createClasse']);
-
-    // Matières
-    Route::post('/admin/matieres/create', [AdminController::class, 'createMatiere']);
-
-    // Professeurs (CRUD)
-    Route::post('/admin/professeurs/add', [AdminController::class, 'addProf']);
-    Route::post('/admin/professeurs/assign-classe', [AdminController::class, 'assignClasse']);
-    Route::post('/admin/professeurs/assign-matiere', [AdminController::class, 'assignMatiere']);
-
-    // Élèves & Professeurs
-    Route::get('/admin/eleves', [AdminController::class, 'manageEleves']);
-    Route::get('/admin/professeurs', [AdminController::class, 'manageProfesseurs']);
-
-    // Documents
-    Route::post('/admin/documents/upload', [AdminController::class, 'uploadDocument']);
-    Route::get('/admin/documents/download/{id}', [AdminController::class, 'downloadDocument']);
-
-    // Bulletins
-    Route::post('/admin/bulletins/upload', [AdminController::class, 'uploadBulletin']);
-
-    // Messages
-    Route::post('/admin/message/send', [MessageController::class, 'send']);
+// ====================
+// ROUTES PROTÉGÉES
+// ====================
+Route::middleware(['auth'])->group(function () {
+    
+    // ====================
+    // ROUTES ANNONCES (AJOUTÉ ICI)
+    // ====================
+    
+    // Routes annonces spécifiques AVANT la route avec paramètre {id}
+    Route::middleware(['isProfesseur'])->group(function () {
+        Route::get('/annonces/create', [AnnonceController::class, 'create'])->name('annonces.create');
+        Route::post('/annonces/store', [AnnonceController::class, 'store'])->name('annonces.store');
+        Route::get('/annonces/{id}/edit', [AnnonceController::class, 'edit'])->name('annonces.edit');
+        Route::put('/annonces/{id}', [AnnonceController::class, 'update'])->name('annonces.update');
+        Route::delete('/annonces/{id}', [AnnonceController::class, 'destroy'])->name('annonces.destroy');
+    });
+    
+    // Routes annonces générales (APRÈS les spécifiques)
+    Route::get('/annonces', [AnnonceController::class, 'index'])->name('annonces.index');
+    Route::get('/annonces/{id}', [AnnonceController::class, 'show'])->name('annonces.show');
+    
+    // ====================
+    // ROUTES COURS SPÉCIFIQUES
+    // ====================
+    
+    Route::middleware(['isProfesseur'])->group(function () {
+        Route::get('/cours/create', [CoursController::class, 'create'])->name('cours.create');
+        Route::post('/cours/store', [CoursController::class, 'store'])->name('cours.store');
+    });
+    
+    // ====================
+    // ROUTES AVEC PARAMÈTRES
+    // ====================
+    Route::get('/cours/{id}', [CoursController::class, 'show'])->name('cours.show');
+    
+    // ====================
+    // ROUTES GÉNÉRALES
+    // ====================
+    Route::get('/cours', [CoursController::class, 'index'])->name('cours.index');
+    
+    // ====================
+    // ROUTES PAR RÔLE
+    // ====================
+    
+    // ADMIN
+    Route::middleware(['isAdmin'])->prefix('admin')->group(function () {
+        Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
+        Route::get('/eleves', [AdminController::class, 'manageEleves'])->name('admin.eleves');
+        Route::get('/professeurs', [AdminController::class, 'manageProfesseurs'])->name('admin.professeurs');
+        Route::get('/documents/download/{id}', [AdminController::class, 'downloadDocument'])->name('admin.documents.download');
+        
+        Route::post('/classes/create', [AdminController::class, 'createClasse'])->name('admin.classes.create');
+        Route::post('/matieres/create', [AdminController::class, 'createMatiere'])->name('admin.matieres.create');
+        Route::post('/professeurs/add', [AdminController::class, 'addProf'])->name('admin.professeurs.add');
+        Route::post('/professeurs/assign-classe', [AdminController::class, 'assignClasse'])->name('admin.professeurs.assign-classe');
+        Route::post('/professeurs/assign-matiere', [AdminController::class, 'assignMatiere'])->name('admin.professeurs.assign-matiere');
+        Route::post('/documents/upload', [AdminController::class, 'uploadDocument'])->name('admin.documents.upload');
+        Route::post('/bulletins/upload', [AdminController::class, 'uploadBulletin'])->name('admin.bulletins.upload');
+        Route::post('/message/send', [MessageController::class, 'send'])->name('admin.message.send');
+        
+        // Routes annonces pour admin aussi (si besoin)
+        Route::get('/annonces', [AdminController::class, 'annonces'])->name('admin.annonces');
+    });
+    
+    // PROFESSEUR
+    Route::middleware(['isProfesseur'])->prefix('prof')->group(function () {
+        Route::get('/', [ProfesseurController::class, 'index'])->name('prof.dashboard');
+        Route::get('/eleves', [ProfesseurController::class, 'manageEleves'])->name('prof.eleves');
+        Route::get('/documents/download/{id}', [ProfesseurController::class, 'downloadDocument'])->name('prof.documents.download');
+        
+        Route::post('/cours/add', [ProfesseurController::class, 'addCours'])->name('prof.cours.add');
+        Route::post('/message/send', [MessageController::class, 'send'])->name('prof.message.send');
+        
+        // Routes annonces pour prof
+        Route::get('/annonces', [ProfesseurController::class, 'annonces'])->name('prof.annonces');
+    });
+    
+    // ÉLÈVE
+    Route::middleware(['isEleve'])->prefix('eleve')->group(function () {
+        Route::get('/', [EleveController::class, 'index'])->name('eleve.dashboard');
+        Route::get('/bulletins', [EleveController::class, 'bulletins'])->name('eleve.bulletins');
+        Route::get('/annonces', [EleveController::class, 'annonces'])->name('eleve.annonces');
+        Route::get('/documents/download/{id}', [EleveController::class, 'downloadDocument'])->name('eleve.documents.download');
+        
+        Route::post('/message/send', [MessageController::class, 'send'])->name('eleve.message.send');
+    });
 });
 
+// ====================
+// ROUTES DE DÉCONNEXION
+// ====================
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-
-//les rotes des profs
-Route::middleware(['auth', 'isProfesseur'])->group(function () {
-
-    Route::get('/prof', [ProfesseurController::class, 'index'])->name('prof.dashboard');
-
-    // cours & documents
-    Route::post('/prof/cours/add', [ProfesseurController::class, 'addCours']);
-    Route::get('/prof/documents/download/{id}', [ProfesseurController::class, 'downloadDocument']);
-
-    // élèves
-    Route::get('/prof/eleves', [ProfesseurController::class, 'manageEleves']);
-
-    // messages
-    Route::post('/prof/message/send', [MessageController::class, 'send']);
+// ====================
+// ROUTES DE FALLBACK (TOUJOURS EN DERNIER)
+// ====================
+Route::fallback(function () {
+    return response()->view('errors.404', [], 404);
 });
-
-
-
-
-//les routes des eleves
-Route::middleware(['auth', 'isEleve'])->group(function () {
-
-    Route::get('/eleve', [EleveController::class, 'index'])->name('eleve.dashboard');
-
-    // Téléchargement documents
-    Route::get('/eleve/documents/download/{id}', [EleveController::class, 'downloadDocument']);
-
-    // Bulletins
-    Route::get('/eleve/bulletins', [EleveController::class, 'bulletins']);
-
-    // Annonces
-    Route::get('/eleve/annonces', [EleveController::class, 'annonces']);
-
-    // Messages
-    Route::post('/eleve/message/send', [MessageController::class, 'send']);
-});
-
-
-
-
-
-//les routes pour les middlware
-Route::middleware(['isAdmin'])->group(function () {
-    // routes admin
-});
-Route::middleware(['isProfesseur'])->group(function () {
-    // routes prof
-});
-Route::middleware(['isEleve'])->group(function () {
-    // routes eleve
-});
-
