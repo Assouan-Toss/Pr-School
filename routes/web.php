@@ -11,6 +11,8 @@ use App\Http\Controllers\AnnonceController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\BibliothequeController;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\Auth\RegisterEleveController;
+
 
 // ====================
 // ROUTES PUBLIQUES
@@ -18,6 +20,39 @@ use Illuminate\Support\Facades\Storage;
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
+
+Route::get('/accueil', function () {
+    return view('welcome');
+})->name('accueil');
+
+Route::get('/about', function () {
+    return view('welcome');
+})->name('about');
+
+Route::get('/contact', function () {
+    return view('welcome');
+})->name('contact');
+
+Route::get('/inscription', function () {
+    return view('inscription');
+})->name('inscription');
+
+
+
+// Inscription des élève
+
+// Route::get('/inscription/eleve', function () {
+//     return view('inscription.eleve'); // ou votre contrôleur
+// })->name('inscription.eleve'); // ← Donner un nom à la route
+
+Route::get('/inscription/eleve', [RegisterEleveController::class, 'create'])
+    ->name('eleve.register');
+
+Route::post('/inscription/eleve', [RegisterEleveController::class, 'store'])
+    ->name('eleve.register.store');
+
+
+
 
 Route::get('/connexion', function () {
     return view('auth.connexion');
@@ -114,6 +149,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/message/send', [MessageController::class, 'send'])->name('admin.message.send');
         
         Route::get('/annonces', [AdminController::class, 'annonces'])->name('admin.annonces');
+
+        Route::get('/admin/classes', [AdminController::class, 'classes']);
+
     });
     
     // PROFESSEUR
@@ -143,6 +181,7 @@ Route::middleware(['auth'])->group(function () {
 // ROUTES DE DÉCONNEXION
 // ====================
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
 /*
@@ -205,4 +244,7 @@ Route::middleware('auth')->group(function () {
         ->name('messages.send');
 
 });
+
+
+
 

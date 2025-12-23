@@ -158,4 +158,23 @@ class AdminController extends Controller
             'profs' => User::where('role', 'professeur')->get()
         ]);
     }
+
+//     public function manageEleves()
+// {
+//     $eleves = User::where('role', 'eleve')->with('classe')->get();
+//     return view('admin.eleves', compact('eleves'));
+// }
+
+// public function manageProfesseurs()
+// {
+//     $professeurs = User::where('role', 'professeur')->get();
+//     return view('admin.professeurs', compact('professeurs'));
+// }
+
+public function classes()
+{
+    $classes = Classe::all();
+    return view('admin.classes', compact('classes'));
+}
+
 }

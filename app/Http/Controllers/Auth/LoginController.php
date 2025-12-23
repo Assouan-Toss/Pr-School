@@ -37,9 +37,15 @@ class LoginController extends Controller
             'email' => 'Identifiants incorrects.',
         ]);
 
-//         if (auth()->user()->role === 'admin') return redirect('/admin');
-// if (auth()->user()->role === 'professeur') return redirect('/prof');
-// return redirect('/eleve');
+    }
 
+    // la fonction logout
+    public function logout(Request $request)
+    {
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 }

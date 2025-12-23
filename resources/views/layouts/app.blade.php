@@ -41,6 +41,9 @@
                 <li><a href="/resultats" class="block hover:text-[var(--bleu-clair)]">📄 Résultats</a></li>
 
             </ul>
+            <!-- boutton de deconnexion -->
+            <li><a href="/logout" class="block hover:text-[var(--bleu-clair)]">Déconnexion</a></li>
+            
         </nav>
     </aside>
 
@@ -49,6 +52,11 @@
 
         <!-- TOP BAR -->
         <header class="bg-[var(--bleu-clair)] text-white flex justify-between items-center px-6 py-3 shadow">
+            <!-- logo de notification -->
+            <div class="flex items-center gap-4">
+                <span class="text-2xl font-semibold">🔔</span>
+                <span class="text-lg">0</span>
+            </div>
 
             <h1 class="text-xl font-semibold">{{ $title ?? 'Dashboard' }}</h1>
 
