@@ -61,6 +61,7 @@ class DocumentController extends Controller
 
         // Optionnel : Vérifier les permissions de visibilité
         $userRole = auth()->user()->role ?? 'visiteur';
+        // Vérifier si l'utilisateur a le droit d'accéder au document
         $allowedRoles = ['eleves', 'professeurs', 'tous'];
         
         if (!in_array($userRole, $allowedRoles) || 

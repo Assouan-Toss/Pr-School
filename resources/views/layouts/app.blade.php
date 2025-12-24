@@ -40,10 +40,16 @@
                 <li><a href="/cours" class="block hover:text-[var(--bleu-clair)]">📘 Cours</a></li>
                 <li><a href="/resultats" class="block hover:text-[var(--bleu-clair)]">📄 Résultats</a></li>
 
-            </ul>
-            <!-- boutton de deconnexion -->
-            <li><a href="/logout" class="block hover:text-[var(--bleu-clair)]">Déconnexion</a></li>
-            
+                  <!-- FOOTER -->
+        <div class="p-4 border-t border-blue-400">
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button class="w-full text-left px-4 py-2 hover:bg-red-600 rounded">
+                    Déconnexion
+                </button>
+            </form>
+        </div>
+    
         </nav>
     </aside>
 

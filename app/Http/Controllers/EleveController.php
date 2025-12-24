@@ -37,4 +37,60 @@ class EleveController extends Controller
                                    ->get()
         ]);
     }
+
+
+
+// Gestion des élèves
+    // public function index()
+    // {
+    //     $eleves = Eleve::with('classe')->paginate(10);
+    //     $classes = Classe::all();
+        
+    //     return view('eleves.index', compact('eleves', 'classes'));
+    // }
+    
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'classe_id' => 'nullable|exists:classes,id',
+        ]);
+        
+        $eleve = Eleve::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt('password'), // Mot de passe par défaut
+            'classe_id' => $request->classe_id,
+        ]);
+        
+        return redirect()->route('gestion.eleves')
+            ->with('success', 'Élève créé avec succès !');
+    }
+    
+    public function update(Request $request, Eleve $eleve)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $eleve->id,
+            'classe_id' => 'nullable|exists:classes,id',
+        ]);
+        
+        $eleve->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'classe_id' => $request->classe_id,
+        ]);
+        
+        return redirect()->route('gestion.eleves')
+            ->with('success', 'Élève mis à jour avec succès !');
+    }
+    
+    public function destroy(Eleve $eleve)
+    {
+        $eleve->delete();
+        
+        return redirect()->route('gestion.eleves')
+            ->with('success', 'Élève supprimé avec succès !');
+    }
 }

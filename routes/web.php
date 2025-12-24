@@ -174,6 +174,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/documents/download/{id}', [EleveController::class, 'downloadDocument'])->name('eleve.documents.download');
         
         Route::post('/message/send', [MessageController::class, 'send'])->name('eleve.message.send');
+
+
+    // Routes pour les élèves
+        Route::resource('eleves', EleveController::class);
+        Route::get('/gestion-eleves', [EleveController::class, 'index'])->name('gestion.eleves');
     });
 });
 
@@ -244,6 +249,18 @@ Route::middleware('auth')->group(function () {
         ->name('messages.send');
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
