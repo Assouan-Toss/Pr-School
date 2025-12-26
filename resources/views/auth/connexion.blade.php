@@ -21,7 +21,7 @@
 
         <div class="text-center mb-8">
             <img src="/images/logo.png" alt="Logo" class="w-24 mx-auto">
-            <h1 class="text-2xl font-bold text-[var(--bleu-fonce)] mt-4">PRE-INCIT</h1>
+            <h1 class="text-2xl font-bold text-[var(--bleu-fonce)] mt-4">PRESCHOOL</h1>
             <p class="text-gray-600">Portail de connexion</p>
         </div>
 

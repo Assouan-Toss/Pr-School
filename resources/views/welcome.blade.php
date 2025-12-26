@@ -8,20 +8,24 @@
         <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
     </head>
 
+    <style>
+    </style>
+
     <body>
         <div class="barbleur"></div>
-        <nav>
+        <nav class="navbar">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="logo">
             <a href="{{ route('accueil') }}">Accueil</a>
             <a href="{{ route('about') }}">À propos</a>
             <a href="{{ route('contact') }}">Contact</a>
-            <button><a href="{{ route('connexion') }}">Connexion</a></button>
+            <button class="connexion"><a href="{{ route('connexion') }}">Connexion</a></button>
         </nav>
 
-        <section>
+        <section class="hero">
             <h1>Bienvenue sur PréSchool</h1>
             <p>PréSchool est une plate-forme web conçu pour aider les élèves en difficulté.</p>
 
-            <button><a href="{{ route('inscription') }}">Inscription</a></button>
+            <button class="inscription"><a href="{{ route('inscription') }}">Inscription</a></button>
         </section>
 
         <h1>Annonces</h1>

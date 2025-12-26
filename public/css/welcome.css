@@ -1,0 +1,132 @@
+.barbleur {
+    background-color: #1B13AD;
+    height: 10px;
+    width: 100%;
+}
+
+.navbar {
+    display: flex;
+    height: 60px;
+    align-items: center;
+    font-size: 1.2em;
+    color: black;
+    gap: 1em;
+    background-color: #3D80DB;
+    border-radius: 0px 0px 15px 15px;
+    padding: 0 20px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.logo {
+    height: 50px;
+    margin-right: auto;
+}
+
+.navbar a:hover {
+    color: #1B13AD;
+    text-decoration: underline;
+}
+
+.connexion {
+    background-color: #1B13AD;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.connexion:hover {
+    background-color: white;
+    color: #1B13AD;
+    border: 1px solid #1B13AD;
+}
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url("../images/hero.jpg");
+    background-size: cover;
+    background-position: center;
+    border: 2px solid blue;
+    border-radius: 15px;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.hero h1 {
+    color: black;
+    font-size: 3em;
+    margin: 0 0 20px 0;
+}
+
+.hero p {
+    color: black;
+    font-size: 1.5em;
+    margin: 0 0 20px 0;
+}
+
+.inscription {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.inscription:hover {
+    background-color: white;
+    color: #1B13AD;
+    border: 1px solid #1B13AD;
+}
+
+/* Section annonces */
+h1 {
+    text-align: center;
+    margin: 40px 0 20px 0;
+    color: #3D80DB;
+}
+
+h2 {
+    color: #1B13AD;
+    margin: 20px 0 10px 0;
+}
+
+/* Images d'annonces */
+img[alt="Evénements"], img[alt="Examens"], img[alt="Bulletins"] {
+    max-width: 100%;
+    height: auto;
+    margin: 10px 0;
+    border-radius: 10px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #3D80DB;
+    color: white;
+    margin-top: 40px;
+    border-radius: 15px 15px 0 0;
+}
+
+footer p {
+    margin: 0;
+}

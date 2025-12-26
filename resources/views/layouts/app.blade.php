@@ -81,5 +81,24 @@
     </main>
 </div>
 
+<!-- FOOTER -->
+<style>
+footer {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #3D80DB;
+    color: white;
+    margin-top: 40px;
+    border-radius: 15px 15px 0 0;
+}
+
+footer p {
+    margin: 0;
+}
+</style>
+        <footer>
+            <p>&copy; 2023 PréSchool. Tous droits réservés.</p>
+        </footer>
+
 </body>
 </html>
