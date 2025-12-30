@@ -45,8 +45,9 @@ body {
 }
 
 .logo {
-    height: 50px;
+    height: 120px;
     margin-right: auto;
+    padding-top: 10px;
 }
 
 .navbar a:hover {
@@ -145,6 +146,7 @@ body {
     text-decoration: none;
     display: inline-block;
     font-weight: bold;
+
 }
 
 .inscription:hover {

@@ -14,6 +14,28 @@
             --bleu-clair: #3D80DB;
             --blanc: #FFFFFF;
         }
+
+        
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #3D80DB;
+            color: white;
+            margin-top: 40px;
+            border-radius: 15px 15px 0 0;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+
+        .logo {
+            height: 150px;
+            align-items: center;
+            margin: 0 auto;
+            margin-bottom: 0 auto;
+        }
     </style>
 </head>
 
@@ -25,8 +47,8 @@
     <aside class="w-64 bg-[var(--bleu-fonce)] text-white flex flex-col">
         
         <div class="p-4 text-center border-b border-white/30">
-            <img src="/images/logo.png" class="w-24 mx-auto" alt="Logo">
-            <h2 class="mt-2 font-semibold text-lg">PRESCHOOL</h2>
+            <img src="{{ asset('/assets/removebg-blanc.png') }}" class="logo" alt="Logo">
+            <!-- <h2 class="mt-2 font-semibold text-lg">PRESCHOOL</h2> -->
             <p class="text-sm opacity-80">{{ auth()->user()->classe->nom ?? '' }}</p>
         </div>
 
@@ -82,20 +104,7 @@
 </div>
 
 <!-- FOOTER -->
-<style>
-footer {
-    text-align: center;
-    padding: 20px 0;
-    background-color: #3D80DB;
-    color: white;
-    margin-top: 40px;
-    border-radius: 15px 15px 0 0;
-}
 
-footer p {
-    margin: 0;
-}
-</style>
         <footer>
             <p>&copy; 2023 PréSchool. Tous droits réservés.</p>
         </footer>

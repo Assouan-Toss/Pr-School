@@ -14,7 +14,7 @@
     <body>
         <div class="barbleur"></div>
         <nav class="navbar">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="logo">
+            <img src="{{ asset('assets/removebg-blanc.png') }}" alt="logo" class="logo">
             <a href="{{ route('accueil') }}">Accueil</a>
             <a href="{{ route('about') }}">À propos</a>
             <a href="{{ route('contact') }}">Contact</a>
@@ -25,7 +25,7 @@
             <h1>Bienvenue sur PréSchool</h1>
             <p>PréSchool est une plate-forme web conçu pour aider les élèves en difficulté.</p>
 
-            <button class="inscription"><a href="{{ route('inscription') }}">Inscription</a></button>
+            <button class="inscription"><a href="{{ route('inscription') }}" style="text-decoration: none;">Inscription</a></button>
         </section>
 
         <h1>Annonces</h1>
@@ -34,8 +34,8 @@
             <div class="evenements">
                 <h2>Evénements</h2>
                 <div class="events">
-                    <img src="{{ asset('images/events.jpg') }}" alt="Evénements">
-                    <img src="{{ asset('images/events.jpg') }}" alt="Evénements">
+                    <img src="{{ asset('assets/sut2.jpg') }}" alt="Evénements">
+                    <img src="{{ asset('assets/image_3D.png') }}" alt="Evénements">
                     <h2>Mise a jour des informations d'evenements</h2>
                     <p>Les élèves seront au courant des événements scolaires ainsi que les dates et programmes</p>
                 </div>
