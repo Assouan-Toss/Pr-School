@@ -231,7 +231,7 @@ Route::middleware(['auth', 'isEleve'])->group(function () {
 });
 
 
-
+// Routes messages
 Route::middleware('auth')->group(function () {
 
     Route::get('/messages', [MessageController::class, 'inbox'])
@@ -249,16 +249,6 @@ Route::middleware('auth')->group(function () {
         ->name('messages.send');
 
 });
-
-
-
-
-
-
-
-
-
-
 
 
 

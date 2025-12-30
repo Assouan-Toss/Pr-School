@@ -26,7 +26,7 @@
         
         <div class="p-4 text-center border-b border-white/30">
             <img src="/images/logo.png" class="w-24 mx-auto" alt="Logo">
-            <h2 class="mt-2 font-semibold text-lg">PRE-INCIT</h2>
+            <h2 class="mt-2 font-semibold text-lg">PRESCHOOL</h2>
             <p class="text-sm opacity-80">{{ auth()->user()->classe->nom ?? '' }}</p>
         </div>
 

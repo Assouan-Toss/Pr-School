@@ -30,10 +30,10 @@
 
         <h1>Annonces</h1>
 
-        <div>
-            <div>
+        <div class="annonces">
+            <div class="evenements">
                 <h2>Evénements</h2>
-                <div>
+                <div class="events">
                     <img src="{{ asset('images/events.jpg') }}" alt="Evénements">
                     <img src="{{ asset('images/events.jpg') }}" alt="Evénements">
                     <h2>Mise a jour des informations d'evenements</h2>
@@ -41,9 +41,9 @@
                 </div>
             </div>
             <!-- les examens --> 
-             <div>
+             <div class="examens">
                 <h2>Examens</h2>
-                <div>
+                <div class="examens1">
                     <img src="{{ asset('images/exam.jpg') }}" alt="Examens">
                     <img src="{{ asset('images/exam.jpg') }}" alt="Examens">
                     <h2>Mise a jour des informations d'examens</h2>
@@ -52,9 +52,9 @@
             </div>
 
             <!-- les bulletins -->
-              <div>
+              <div class="bulletins">
                 <h2>Bulletins</h2>
-                <div>
+                <div class="bulletins1">
                     <img src="{{ asset('images/bulletin.jpg') }}" alt="Bulletins">
                     <img src="{{ asset('images/bulletin.jpg') }}" alt="Bulletins">
                     <h2>Mise a jour des bulletins</h2>

@@ -1,25 +1,47 @@
+/* Styles généraux */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    /* max-width: 1200px; */
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
 .barbleur {
     background-color: #1B13AD;
     height: 10px;
     width: 100%;
+    margin-bottom: 0;
 }
 
+/* Navigation */
 .navbar {
     display: flex;
     height: 60px;
     align-items: center;
     font-size: 1.2em;
     color: black;
-    gap: 1em;
+    gap: 2em;
     background-color: #3D80DB;
     border-radius: 0px 0px 15px 15px;
-    padding: 0 20px;
+    padding: 0 30px;
+    margin-bottom: 20px;
 }
 
 .navbar a {
     color: white;
     text-decoration: none;
     font-weight: bold;
+    transition: all 0.3s ease;
+    padding: 5px 10px;
+    border-radius: 5px;
 }
 
 .logo {
@@ -29,7 +51,8 @@
 
 .navbar a:hover {
     color: #1B13AD;
-    text-decoration: underline;
+    background-color: white;
+    text-decoration: none;
 }
 
 .connexion {
@@ -40,61 +63,96 @@
     padding: 10px 20px;
     text-align: center;
     font-size: 16px;
-    margin: 4px 2px;
     cursor: pointer;
     margin-left: auto;
+    transition: all 0.3s ease;
+}
+
+.connexion a {
+    color: white;
+    text-decoration: none;
+    display: block;
 }
 
 .connexion:hover {
     background-color: white;
-    color: #1B13AD;
-    border: 1px solid #1B13AD;
+    border: 2px solid #1B13AD;
 }
 
+.connexion:hover a {
+    color: #1B13AD;
+}
+
+/* Hero section */
 .hero {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 80vh;
     background-image: url("../images/hero.jpg");
     background-size: cover;
     background-position: center;
-    border: 2px solid blue;
+    border: 2px solid #3D80DB;
     border-radius: 15px;
     color: white;
     text-align: center;
-    padding: 20px;
+    padding: 40px;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 13px;
+}
+
+.hero h1, .hero p, .hero .inscription {
+    position: relative;
+    z-index: 1;
 }
 
 .hero h1 {
-    color: black;
+    color: #1B13AD;
     font-size: 3em;
-    margin: 0 0 20px 0;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
 }
 
 .hero p {
-    color: black;
+    color: #333;
     font-size: 1.5em;
-    margin: 0 0 20px 0;
+    margin-bottom: 30px;
+    max-width: 800px;
+    font-weight: 500;
 }
 
 .inscription {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: transparent;
     color: white;
     border: none;
     border-radius: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    margin: 10px 0;
+    padding: 15px 30px;
+    font-size: 18px;
     cursor: pointer;
     transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: bold;
 }
 
 .inscription:hover {
     background-color: white;
     color: #1B13AD;
-    border: 1px solid #1B13AD;
+    border: 2px solid #1B13AD;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Section annonces */
@@ -102,31 +160,144 @@ h1 {
     text-align: center;
     margin: 40px 0 20px 0;
     color: #3D80DB;
+    font-size: 2.5em;
+}
+
+.annonces {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.evenements, .examens, .bulletins {
+    background-color: #f5f9ff;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.evenements:hover, .examens:hover, .bulletins:hover {
+    transform: translateY(-5px);
 }
 
 h2 {
     color: #1B13AD;
-    margin: 20px 0 10px 0;
+    margin: 0 0 15px 0;
+    font-size: 1.8em;
+    border-bottom: 2px solid #3D80DB;
+    padding-bottom: 10px;
 }
 
 /* Images d'annonces */
-img[alt="Evénements"], img[alt="Examens"], img[alt="Bulletins"] {
+.events, .examens1, .bulletins1 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+img[alt="Evénements"], 
+img[alt="Examens"], 
+img[alt="Bulletins"] {
     max-width: 100%;
-    height: auto;
+    height: 200px;
+    object-fit: cover;
     margin: 10px 0;
     border-radius: 10px;
+    border: 2px solid #3D80DB;
+}
+
+.evenements p, .examens p, .bulletins p {
+    color: #333;
+    line-height: 1.6;
+    margin-top: 10px;
+    font-size: 1.1em;
 }
 
 /* Footer */
 footer {
     text-align: center;
-    padding: 20px 0;
+    padding: 30px 0;
     background-color: #3D80DB;
     color: white;
     margin-top: 40px;
     border-radius: 15px 15px 0 0;
+    margin-bottom: 20px;
 }
 
 footer p {
     margin: 0;
+    font-size: 1.1em;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-wrap: wrap;
+        height: auto;
+        padding: 15px;
+        gap: 1em;
+    }
+    
+    .logo {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    
+    .connexion {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    
+    .hero {
+        height: 60vh;
+        padding: 20px;
+    }
+    
+    .hero h1 {
+        font-size: 2em;
+    }
+    
+    .hero p {
+        font-size: 1.2em;
+    }
+    
+    h1 {
+        font-size: 2em;
+    }
+    
+    .annonces {
+        grid-template-columns: 1fr;
+    }
+    
+    .events, .examens1, .bulletins1 {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .navbar a {
+        margin: 5px 0;
+    }
+    
+    .hero h1 {
+        font-size: 1.8em;
+    }
+    
+    .hero p {
+        font-size: 1em;
+    }
+    
+    .inscription {
+        padding: 12px 24px;
+        font-size: 16px;
+    }
 }
