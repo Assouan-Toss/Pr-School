@@ -91,7 +91,7 @@ body {
     align-items: center;
     justify-content: center;
     height: 80vh;
-    background-image: url("../images/hero.jpg");
+    background-image: url("/assets/lygbeko.jpg");
     background-size: cover;
     background-position: center;
     border: 2px solid #3D80DB;
@@ -110,7 +110,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.151);
     border-radius: 13px;
 }
 

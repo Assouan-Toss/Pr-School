@@ -22,6 +22,7 @@
         </nav>
 
         <section class="hero">
+
             <h1>Bienvenue sur PréSchool</h1>
             <p>PréSchool est une plate-forme web conçu pour aider les élèves en difficulté.</p>
 

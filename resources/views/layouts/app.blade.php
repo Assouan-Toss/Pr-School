@@ -36,7 +36,101 @@
             margin: 0 auto;
             margin-bottom: 0 auto;
         }
-    </style>
+
+
+        .dachb {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            flex-shrink: 0; /* Empêche l'icône de se rétrécir */
+        }
+
+        .side {
+            display: flex;
+            align-items: center; /* Aligne verticalement au centre */
+            gap: 12px; /* Espacement constant entre l'icône et le texte */
+            font-size: 1.2rem;
+            /* padding: 8px 12px; */
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .side:hover {
+            background-color: rgba(61, 128, 219, 0.1);
+        }
+
+        .side a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            /* width: 100%; */
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Pour s'assurer que tous les textes ont la même taille */
+        .side a span {
+            flex-grow: 1;
+            white-space: nowrap; /* Empêche le texte de passer à la ligne */
+        }
+
+        nav ul {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        nav ul li {
+            width: 100%;
+        }
+
+        /* Style pour le bouton de déconnexion */
+        .border-t {
+            margin-top: auto; /* Pousse le footer en bas */
+        }
+
+        .border-t button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* gap: 10px; */
+            /* width: 100%; */
+            padding: 10px 16px;
+            background-color: transparent;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: background-color 0.2s ease;
+        }
+
+        .border-t button:hover {
+            background-color: #b91c1c;
+        }
+
+        /* Pour ajouter une icône de déconnexion */
+        .border-t button::before {
+            content: "";
+            font-size: 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .side {
+                padding: 6px 10px;
+                gap: 10px;
+            }
+            
+            .dachb {
+                width: 20px;
+                height: 20px;
+            }
+            
+            .side a {
+                font-size: 0.9rem;
+            }
+        }
+</style>
 </head>
 
 <body class="bg-gray-100">
@@ -55,12 +149,12 @@
         <nav class="flex-1 px-4 py-6">
             <ul class="space-y-4 text-md">
 
-                <li><a href="/dashboard" class="block hover:text-[var(--bleu-clair)]">🏠 Accueil</a></li>
-                <li><a href="/annonces" class="block hover:text-[var(--bleu-clair)]">📢 Annonces</a></li>
-                <li><a href="/messages" class="block hover:text-[var(--bleu-clair)]">💬 Messages</a></li>
-                <li><a href="/bibliotheque" class="block hover:text-[var(--bleu-clair)]">📚 Bibliothèque</a></li>
-                <li><a href="/cours" class="block hover:text-[var(--bleu-clair)]">📘 Cours</a></li>
-                <li><a href="/resultats" class="block hover:text-[var(--bleu-clair)]">📄 Résultats</a></li>
+                <li class="side"><a href="/dashboard" class="block hover:text-[var(--bleu-clair)]"><img src="{{ asset('assets/icons8-dashboard-50.png') }}" class="dachb" alt="dashboard">Dashboard</a></li>
+                <li class="side"><a href="/annonces" class="block hover:text-[var(--bleu-clair)]"><img src="{{ asset('assets/icons8-ads-48.png') }}" class="dachb" alt="annonces">Annonces</a></li>
+                <li class="side"><a href="/messages" class="block hover:text-[var(--bleu-clair)]"><img src="{{ asset('assets/icons8-message-50.png') }}" class="dachb" alt="messages">Messages</a></li>
+                <li class="side"><a href="/bibliotheque" class="block hover:text-[var(--bleu-clair)]"><img src="{{ asset('assets/icons8-books-50.png') }}" class="dachb" alt="bibliotheque">Bibliothèque</a></li>
+                <li class="side"><a href="/cours" class="block hover:text-[var(--bleu-clair)]"><img src="{{ asset('assets/icons8-book-50.png') }}" class="dachb" alt="cours">Cours</a></li>
+                <li class="side"><a href="/resultats" class="block hover:text-[var(--bleu-clair)]"><img src="{{ asset('assets/icons8-quiz-48.png') }}" class="dachb" alt="resultats">Résultats</a></li>
 
                   <!-- FOOTER -->
         <div class="p-4 border-t border-blue-400">
