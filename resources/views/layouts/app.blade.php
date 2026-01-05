@@ -149,7 +149,7 @@
         <nav class="flex-1 px-4 py-6">
             <ul class="space-y-4 text-md">
 
-                <li class="side"><a href="/dashboard" class="block hover:text-[var(--bleu-clair)]"><img src="{{ asset('assets/icons8-dashboard-50.png') }}" class="dachb" alt="dashboard">Dashboard</a></li>
+                <!-- <li class="side"><a href="/dashboard" class="block hover:text-[var(--bleu-clair)]"><img src="{{ asset('assets/icons8-dashboard-50.png') }}" class="dachb" alt="dashboard">Dashboard</a></li> -->
                 <li class="side"><a href="/annonces" class="block hover:text-[var(--bleu-clair)]"><img src="{{ asset('assets/icons8-ads-48.png') }}" class="dachb" alt="annonces">Annonces</a></li>
                 <li class="side"><a href="/messages" class="block hover:text-[var(--bleu-clair)]"><img src="{{ asset('assets/icons8-message-50.png') }}" class="dachb" alt="messages">Messages</a></li>
                 <li class="side"><a href="/bibliotheque" class="block hover:text-[var(--bleu-clair)]"><img src="{{ asset('assets/icons8-books-50.png') }}" class="dachb" alt="bibliotheque">Bibliothèque</a></li>

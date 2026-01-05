@@ -171,11 +171,40 @@ class AdminController extends Controller
 //     return view('admin.professeurs', compact('professeurs'));
 // }
 
+// public function classes()
+// {
+//     $classes = Classe::all();
+//     return view('admin.classes', compact('classes'));
+// }
+
 public function classes()
 {
     $classes = Classe::all();
-    return view('admin.classes', compact('classes'));
+    return view('admin.classes.index', compact('classes'));
 }
+
+public function createClasses(Request $request)
+{
+    $request->validate([
+        'nom' => 'required',
+        'niveau' => 'required'
+    ]);
+
+    Classe::create($request->only('nom', 'niveau'));
+
+    return back()->with('success', 'Classe créée avec succès');
+}
+
+
+    public function annonces()
+    {
+        // Si vous avez un modèle Annonce
+        // $annonces = Annonce::all();
+        // return view('admin.annonces', compact('annonces'));
+        
+        return view('admin.annonces');
+    }
+    
 
 
 

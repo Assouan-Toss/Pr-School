@@ -52,4 +52,14 @@ class ProfesseurController extends Controller
                            ->where('role', 'eleve')->get()
         ]);
     }
+
+    // App\Http\Controllers\Admin\ProfesseurController.php
+    // public function index()
+    // {
+    //     $professeurs = \App\Models\User::where('role', 'professeur')->get();
+        
+    //     return view('admin.professeurs', compact('professeurs'));
+    //     // ou
+    //     return view('admin.professeurs', ['professeurs' => $professeurs]);
+    // }
 }

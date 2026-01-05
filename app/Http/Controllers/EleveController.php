@@ -33,8 +33,8 @@ class EleveController extends Controller
     {
         return view('eleve.annonces', [
             'documents' => Document::where('visible_pour', 'tous')
-                                   ->orWhere('classe_id', auth()->user()->classe_id)
-                                   ->get()
+                  ->orWhere('classe_id', auth()->user()->classe_id)
+                  ->get()
         ]);
     }
 

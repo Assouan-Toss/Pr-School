@@ -35,7 +35,7 @@ Route::get('/contact', function () {
 // Inscription
 // Route::get('/inscription', function () {
 //     return view('inscription');
-// })->name('auth.register-eleve');
+// })->name('auth.inscription');
 
 // Inscription des élèves
 Route::get('/inscription/eleve', [RegisterEleveController::class, 'create'])
@@ -160,6 +160,16 @@ Route::middleware(['auth'])->group(function () {
         
         // Messages
         Route::post('/message/send', [MessageController::class, 'send'])->name('admin.message.send');
+
+        //Routes pour la gestion des classes
+        Route::middleware(['auth', 'isAdmin'])->group(function () {
+
+            Route::get('/admin/classes', [AdminController::class, 'classes']);
+            Route::post('/admin/classes/create', [AdminController::class, 'createClasse']);
+            Route::delete('/admin/classes/delete/{id}', [AdminController::class, 'deleteClasse']);
+
+});
+
     });
     
     // PROFESSEUR

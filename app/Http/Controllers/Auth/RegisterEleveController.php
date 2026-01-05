@@ -16,7 +16,7 @@ class RegisterEleveController extends Controller
     public function create()
     {
         $classes = Classe::all();
-        return view('auth.register-eleve', compact('classes'));
+        return view('auth.inscription', compact('classes'));
     }
 
     /**
