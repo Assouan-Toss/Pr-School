@@ -35,7 +35,7 @@
             <div class="evenements">
                 <h2>Evénements</h2>
                 <div class="events">
-                    <img src="{{ asset('assets/sut2.jpg') }}" alt="Evénements">
+                    <img src="{{ asset('assets/Gemini_Generated.png') }}" alt="Evénements">
                     <img src="{{ asset('assets/image_3D.png') }}" alt="Evénements">
                     <h2>Mise a jour des informations d'evenements</h2>
                     <p>Les élèves seront au courant des événements scolaires ainsi que les dates et programmes</p>
@@ -45,8 +45,8 @@
              <div class="examens">
                 <h2>Examens</h2>
                 <div class="examens1">
-                    <img src="{{ asset('images/exam.jpg') }}" alt="Examens">
-                    <img src="{{ asset('images/exam.jpg') }}" alt="Examens">
+                    <img src="{{ asset('assets/sout4.jpg') }}" alt="Examens">
+                    <img src="{{ asset('assets/sout3.jpg') }}" alt="Examens">
                     <h2>Mise a jour des informations d'examens</h2>
                     <p>Les dates des examens et concours de l'année scolaire</p>
                 </div>
@@ -56,8 +56,8 @@
               <div class="bulletins">
                 <h2>Bulletins</h2>
                 <div class="bulletins1">
-                    <img src="{{ asset('images/bulletin.jpg') }}" alt="Bulletins">
-                    <img src="{{ asset('images/bulletin.jpg') }}" alt="Bulletins">
+                    <img src="{{ asset('assets/images1.jpg') }}" alt="Bulletins">
+                    <img src="{{ asset('assets/images.jpg') }}" alt="Bulletins">
                     <h2>Mise a jour des bulletins</h2>
                     <p>Les notes et evaluations des eleves</p>
                 </div>

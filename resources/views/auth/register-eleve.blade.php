@@ -68,6 +68,6 @@
     <!-- Bouton -->
     <button type="submit"
             class="w-full bg-[#3D80DB] hover:bg-[#1B13AD] text-white py-2 rounded">
-        S’inscrire
+        S'inscrire
     </button>
 </form>
