@@ -75,6 +75,21 @@
                 </div>
         </div> -->
 
+        <h1>Romans</h1>
+      <div class="carousel-container">
+            <img src="{{ asset('assets/images3.jpeg') }}" alt="Image 1">
+            <img src="{{ asset('assets/images2.jpeg') }}" alt="Image 2">
+            <img src="{{ asset('assets/téléchargement4.jpeg') }}" alt="Image 3">
+            <img src="{{ asset('assets/images5.jpeg') }}" alt="Image 4">
+            <img src="{{ asset('assets/téléchargement1.jpeg') }}" alt="Image 5">
+            <img src="{{ asset('assets/images6.jpeg') }}" alt="Image 6">
+            <img src="{{ asset('assets/images1.jpeg') }}" alt="Image 7">
+            <img src="{{ asset('assets/images.jpeg') }}" alt="Image 8">
+            <img src="{{ asset('assets/téléchargement5.jpeg') }}" alt="Image 9">
+            <img src="{{ asset('assets/téléchargement3.jpeg') }}" alt="Image 10">
+    </div>
+
+
         <footer>
             <p>&copy; 2023 PréSchool. Tous droits réservés.</p>
         </footer>

@@ -174,7 +174,8 @@
 
         <!-- TOP BAR -->
         <header class="bg-[var(--bleu-clair)] text-white flex justify-between items-center px-6 py-3 shadow">
-            <!-- logo de notification -->
+
+            <!-- Activités les notifications -->
             <div class="flex items-center gap-4">
                 <span class="text-2xl font-semibold">🔔</span>
                 <span class="text-lg">0</span>

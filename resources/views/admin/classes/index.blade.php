@@ -408,7 +408,7 @@
     <div class="dashboard-container">
         <!-- En-tête -->
         <div class="header">
-            <h1 class="page-title">📚 Gestion des classes</h1>
+            <h1 class="page-title"> Gestion des classes</h1>
         </div>
 
         <!-- Messages -->

@@ -20,7 +20,7 @@
     <div class="bg-white shadow-xl rounded-lg p-10 w-full max-w-md">
 
         <div class="text-center mb-8">
-            <img src="/images/logo.png" alt="Logo" class="w-24 mx-auto">
+            <img src="{{ asset('assets/2-removebg-preview.png') }}" alt="Logo" class="w-24 mx-auto">
             <h1 class="text-2xl font-bold text-[var(--bleu-fonce)] mt-4">PRESCHOOL</h1>
             <p class="text-gray-600">Portail de connexion</p>
         </div>

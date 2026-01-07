@@ -5,6 +5,7 @@
 <h1 class="text-3xl font-bold mb-8">Tableau de bord Administrateur</h1>
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    
 
     <!-- Élèves -->
     <a href="{{ route('admin.eleves') }}"
@@ -27,22 +28,24 @@
         <p class="text-gray-600">Créer et modifier les classes</p>
     </a>
 
+    
+
     <!-- Annonces -->
-    <a href="{{ route('admin.annonces') }}"
+    <!-- <a href="{{ route('admin.annonces') }}"
        class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
         <h2 class="text-xl font-semibold mb-2">Annonces</h2>
         <p class="text-gray-600">Publier des annonces</p>
-    </a>
+    </a> -->
 
     <!-- Bulletins -->
-    <a href="{{ route('admin.bulletins.index') }}"
+    <!-- <a href="{{ route('admin.bulletins.index') }}"
        class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
         <h2 class="text-xl font-semibold mb-2">Bulletins</h2>
         <p class="text-gray-600">Gérer les bulletins scolaires</p>
-    </a>
+    </a> -->
 
     <!-- Messages -->
-    <div class="bg-white p-6 rounded-lg shadow">
+    <!-- <div class="bg-white p-6 rounded-lg shadow">
         <h2 class="text-xl font-semibold mb-2">Messages</h2>
         <p class="text-gray-600 mb-4">Envoyer un message</p>
 
@@ -61,7 +64,7 @@
                 Envoyer
             </button>
         </form>
-    </div>
+    </div> -->
 
 </div>
 

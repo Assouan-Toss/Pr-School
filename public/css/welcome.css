@@ -303,3 +303,23 @@ footer p {
         font-size: 16px;
     }
 }
+
+
+
+.carousel-container {
+  display: flex;
+  overflow-x: scroll; /* Défilement horizontal */
+  scroll-snap-type: x mandatory;
+  gap: 10px;
+}
+.carousel-container img {
+  flex-shrink: 0;
+  /*Empêche les images de rétrécir*/width: 200px;
+  /*Ou une largeur fixe par image*/scroll-snap-align: start;
+  transform: translateX(0);
+  height: 300px;
+  /*gap: 10px;
+  */border: 2px solid #3D80DB;
+  border-radius: 10px;
+
+}

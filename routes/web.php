@@ -10,7 +10,6 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AnnonceController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\BibliothequeController;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Auth\RegisterEleveController;
 
 // ====================
@@ -31,11 +30,6 @@ Route::get('/about', function () {
 Route::get('/contact', function () {
     return view('welcome');
 })->name('contact');
-
-// Inscription
-// Route::get('/inscription', function () {
-//     return view('inscription');
-// })->name('auth.inscription');
 
 // Inscription des élèves
 Route::get('/inscription/eleve', [RegisterEleveController::class, 'create'])
@@ -59,52 +53,7 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout.get');
 Route::middleware(['auth'])->group(function () {
     
     // ====================
-    // ROUTES ANNONCES
-    // ====================
-    Route::prefix('annonces')->group(function () {
-        Route::get('/', [AnnonceController::class, 'index'])->name('annonces.index');
-        Route::get('/{id}', [AnnonceController::class, 'show'])->name('annonces.show');
-        
-        Route::middleware(['isProfesseur'])->group(function () {
-            Route::get('/create', [AnnonceController::class, 'create'])->name('annonces.create');
-            Route::post('/store', [AnnonceController::class, 'store'])->name('annonces.store');
-            Route::get('/{id}/edit', [AnnonceController::class, 'edit'])->name('annonces.edit');
-            Route::put('/{id}', [AnnonceController::class, 'update'])->name('annonces.update');
-            Route::delete('/{id}', [AnnonceController::class, 'destroy'])->name('annonces.destroy');
-        });
-    });
-    
-    // ====================
-    // ROUTES COURS
-    // ====================
-    Route::prefix('cours')->group(function () {
-        Route::get('/', [CoursController::class, 'index'])->name('cours.index');
-        Route::get('/{id}', [CoursController::class, 'show'])->name('cours.show');
-        
-        Route::middleware(['isProfesseur'])->group(function () {
-            Route::get('/create', [CoursController::class, 'create'])->name('cours.create');
-            Route::post('/store', [CoursController::class, 'store'])->name('cours.store');
-        });
-    });
-    
-    // ====================
-    // ROUTES DOCUMENTS ET BIBLIOTHÈQUE
-    // ====================
-    Route::get('/bibliotheque', [BibliothequeController::class, 'index'])
-        ->name('bibliotheque.index');
-    
-    Route::get('/documents/{document}/download', [DocumentController::class, 'download'])
-        ->name('documents.download');
-    
-    Route::middleware(['isProfesseur'])->group(function () {
-        Route::get('/documents/create', [DocumentController::class, 'create'])
-            ->name('documents.create');
-        Route::post('/documents/store', [DocumentController::class, 'store'])
-            ->name('documents.store');
-    });
-    
-    // ====================
-    // ROUTES MESSAGES
+    // ROUTES MESSAGES (Communes à tous)
     // ====================
     Route::prefix('messages')->group(function () {
         Route::get('/', function () {
@@ -117,82 +66,126 @@ Route::middleware(['auth'])->group(function () {
             ->name('messages.sent');
         Route::get('/create', [MessageController::class, 'create'])
             ->name('messages.create');
-        Route::post('/', [MessageController::class, 'store']);
         Route::post('/send', [MessageController::class, 'send'])
             ->name('messages.send');
+        Route::post('/', [MessageController::class, 'store'])->name('messages.store');
+    });
+    
+    // ====================
+    // ROUTES ANNONCES (Communes à tous)
+    // ====================
+    Route::prefix('annonces')->group(function () {
+        Route::get('/', [AnnonceController::class, 'index'])->name('annonces.index');
+        Route::get('/{id}', [AnnonceController::class, 'show'])->name('annonces.show');
+        
+        // Routes réservées aux professeurs
+        Route::middleware(['isProfesseur'])->group(function () {
+            Route::get('/create', [AnnonceController::class, 'create'])->name('annonces.create');
+            Route::post('/store', [AnnonceController::class, 'store'])->name('annonces.store');
+            Route::get('/{id}/edit', [AnnonceController::class, 'edit'])->name('annonces.edit');
+            Route::put('/{id}', [AnnonceController::class, 'update'])->name('annonces.update');
+            Route::delete('/{id}', [AnnonceController::class, 'destroy'])->name('annonces.destroy');
+        });
+    });
+    
+    // ====================
+    // ROUTES COURS (Communes à tous)
+    // ====================
+    Route::prefix('cours')->group(function () {
+        Route::get('/', [CoursController::class, 'index'])->name('cours.index');
+        Route::get('/{id}', [CoursController::class, 'show'])->name('cours.show');
+        
+        // Routes réservées aux professeurs
+        Route::middleware(['isProfesseur'])->group(function () {
+            Route::get('/create', [CoursController::class, 'create'])->name('cours.create');
+            Route::post('/store', [CoursController::class, 'store'])->name('cours.store');
+        });
+    });
+    
+    // ====================
+    // ROUTES DOCUMENTS ET BIBLIOTHÈQUE (Communes à tous)
+    // ====================
+    Route::get('/bibliotheque', [BibliothequeController::class, 'index'])
+        ->name('bibliotheque.index');
+    
+    Route::get('/documents/{document}/download', [DocumentController::class, 'download'])
+        ->name('documents.download');
+    
+    // Routes réservées aux professeurs
+    Route::middleware(['isProfesseur'])->group(function () {
+        Route::get('/documents/create', [DocumentController::class, 'create'])
+            ->name('documents.create');
+        Route::post('/documents/store', [DocumentController::class, 'store'])
+            ->name('documents.store');
     });
     
     // ====================
     // ROUTES PAR RÔLE
     // ====================
     
-    // ADMIN
-    Route::middleware(['isAdmin'])->prefix('admin')->group(function () {
-        Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
+    // ADMIN - Doit être placé AVANT les routes paramétrées génériques
+    Route::middleware(['isAdmin'])->prefix('admin')->name('admin.')->group(function () {
+        Route::get('/', [AdminController::class, 'index'])->name('dashboard');
         
         // Gestion des utilisateurs
-        Route::get('/eleves', [AdminController::class, 'manageEleves'])->name('admin.eleves');
-        Route::get('/professeurs', [AdminController::class, 'manageProfesseurs'])->name('admin.professeurs');
+        Route::get('/eleves', [AdminController::class, 'manageEleves'])->name('eleves');
+        Route::get('/professeurs', [AdminController::class, 'manageProfesseurs'])->name('professeurs');
         
         // Gestion académique
-        Route::get('/classes', [AdminController::class, 'classes'])->name('admin.classes');
-        Route::post('/classes/create', [AdminController::class, 'createClasse'])->name('admin.classes.create');
-        Route::post('/matieres/create', [AdminController::class, 'createMatiere'])->name('admin.matieres.create');
+        Route::get('/classes', [AdminController::class, 'classes'])->name('classes');
+        Route::post('/classes/create', [AdminController::class, 'createClasse'])->name('classes.create');
+        Route::delete('/classes/delete/{id}', [AdminController::class, 'deleteClasse'])->name('classes.delete');
+        Route::post('/matieres/create', [AdminController::class, 'createMatiere'])->name('matieres.create');
         
         // Gestion des professeurs
-        Route::post('/professeurs/add', [AdminController::class, 'addProf'])->name('admin.professeurs.add');
-        Route::post('/professeurs/assign-classe', [AdminController::class, 'assignClasse'])->name('admin.professeurs.assign-classe');
-        Route::post('/professeurs/assign-matiere', [AdminController::class, 'assignMatiere'])->name('admin.professeurs.assign-matiere');
+        Route::post('/professeurs/add', [AdminController::class, 'addProf'])->name('professeurs.add');
+        Route::post('/professeurs/assign-classe', [AdminController::class, 'assignClasse'])->name('professeurs.assign-classe');
+        Route::post('/professeurs/assign-matiere', [AdminController::class, 'assignMatiere'])->name('professeurs.assign-matiere');
         
         // Gestion des documents
-        Route::get('/documents/download/{id}', [AdminController::class, 'downloadDocument'])->name('admin.documents.download');
-        Route::post('/documents/upload', [AdminController::class, 'uploadDocument'])->name('admin.documents.upload');
+        Route::get('/documents/download/{id}', [AdminController::class, 'downloadDocument'])->name('documents.download');
+        Route::post('/documents/upload', [AdminController::class, 'uploadDocument'])->name('documents.upload');
+        
+        Route::get('/bibliotheque', [BibliothequeController::class, 'index'])->name('bibliotheque.index');
+        Route::get('/documents/download/{id}', [BibliothequeController::class, 'download'])->name('documents.download');
         
         // Gestion des annonces
-        Route::get('/annonces', [AdminController::class, 'annonces'])->name('admin.annonces');
+        Route::get('/annonces', [AdminController::class, 'annonces'])->name('annonces');
         
-        // Gestion des bulletins
-        Route::get('/bulletins', [AdminController::class, 'bulletins'])->name('admin.bulletins.index');
-        Route::get('/bulletins/create', [AdminController::class, 'createBulletin'])->name('admin.bulletins.create');
-        Route::post('/bulletins', [AdminController::class, 'storeBulletin'])->name('admin.bulletins.store');
-        Route::post('/bulletins/upload', [AdminController::class, 'uploadBulletin'])->name('admin.bulletins.upload');
-        Route::delete('/bulletins/{id}', [AdminController::class, 'destroyBulletin'])->name('admin.bulletins.destroy');
+        // Gestion des bulletins 
+        Route::prefix('bulletins')->name('bulletins.')->group(function () {
+            Route::get('/', [AdminController::class, 'bulletins'])->name('index');
+            Route::get('/create', [AdminController::class, 'createBulletin'])->name('create');
+            Route::post('/', [AdminController::class, 'storeBulletin'])->name('store');
+            Route::post('/upload', [AdminController::class, 'uploadBulletin'])->name('upload');
+            Route::delete('/{id}', [AdminController::class, 'destroyBulletin'])->name('destroy');
+        });
         
         // Messages
-        Route::post('/message/send', [MessageController::class, 'send'])->name('admin.message.send');
-
-        //Routes pour la gestion des classes
-        Route::middleware(['auth', 'isAdmin'])->group(function () {
-
-            Route::get('/admin/classes', [AdminController::class, 'classes']);
-            Route::post('/admin/classes/create', [AdminController::class, 'createClasse']);
-            Route::delete('/admin/classes/delete/{id}', [AdminController::class, 'deleteClasse']);
-
-});
-
+        Route::post('/message/send', [MessageController::class, 'send'])->name('message.send');
     });
     
     // PROFESSEUR
-    Route::middleware(['isProfesseur'])->prefix('prof')->group(function () {
-        Route::get('/', [ProfesseurController::class, 'index'])->name('prof.dashboard');
-        Route::get('/eleves', [ProfesseurController::class, 'manageEleves'])->name('prof.eleves');
-        Route::get('/annonces', [ProfesseurController::class, 'annonces'])->name('prof.annonces');
+    Route::middleware(['isProfesseur'])->prefix('prof')->name('prof.')->group(function () {
+        Route::get('/', [ProfesseurController::class, 'index'])->name('dashboard');
+        Route::get('/eleves', [ProfesseurController::class, 'manageEleves'])->name('eleves');
+        Route::get('/annonces', [ProfesseurController::class, 'annonces'])->name('annonces');
         
-        Route::get('/documents/download/{id}', [ProfesseurController::class, 'downloadDocument'])->name('prof.documents.download');
-        Route::post('/cours/add', [ProfesseurController::class, 'addCours'])->name('prof.cours.add');
-        Route::post('/message/send', [MessageController::class, 'send'])->name('prof.message.send');
+        Route::get('/documents/download/{id}', [ProfesseurController::class, 'downloadDocument'])->name('documents.download');
+        Route::post('/cours/add', [ProfesseurController::class, 'addCours'])->name('cours.add');
+        Route::post('/message/send', [MessageController::class, 'send'])->name('message.send');
     });
     
     // ÉLÈVE
-    Route::middleware(['isEleve'])->prefix('eleve')->group(function () {
-        Route::get('/', [EleveController::class, 'index'])->name('eleve.dashboard');
-        Route::get('/annonces', [EleveController::class, 'annonces'])->name('eleve.annonces');
-        Route::get('/bulletins', [EleveController::class, 'bulletins'])->name('eleve.bulletins');
-        Route::get('/documents/download/{id}', [EleveController::class, 'downloadDocument'])->name('eleve.documents.download');
+    Route::middleware(['isEleve'])->prefix('eleve')->name('eleve.')->group(function () {
+        Route::get('/', [EleveController::class, 'index'])->name('dashboard');
+        Route::get('/annonces', [EleveController::class, 'annonces'])->name('annonces');
+        Route::get('/bulletins', [EleveController::class, 'bulletins'])->name('bulletins');
+        Route::get('/documents/download/{id}', [EleveController::class, 'downloadDocument'])->name('documents.download');
         
-        Route::post('/message/send', [MessageController::class, 'send'])->name('eleve.message.send');
+        Route::post('/message/send', [MessageController::class, 'send'])->name('message.send');
         
-        // Routes pour la gestion des élèves (si nécessaire)
+        // Routes pour la gestion des élèves
         Route::resource('eleves', EleveController::class);
         Route::get('/gestion-eleves', [EleveController::class, 'index'])->name('gestion.eleves');
     });
