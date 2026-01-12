@@ -143,6 +143,13 @@ class AdminController extends Controller
         return back()->with('success', 'Bulletin publié.');
     }
 
+    // AFFICHER LES BULLETINS
+    public function bulletins()
+    {
+        return view('admin.bulletins', [
+            'bulletins' => Bulletin::all()
+        ]);
+    }
     /** GERER ÉLÈVES */
     public function manageEleves()
     {

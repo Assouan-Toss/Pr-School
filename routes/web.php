@@ -176,13 +176,13 @@ Route::get('/documents/{document}/download', [DocumentController::class, 'downlo
         Route::get('/annonces', [AdminController::class, 'annonces'])->name('annonces');
         
         // Gestion des bulletins 
-        Route::prefix('bulletins')->name('bulletins.')->group(function () {
-            Route::get('/', [AdminController::class, 'bulletins'])->name('index');
+        
+            Route::get('/bulletins', [AdminController::class, 'bulletins'])->name('bulletins.index');
             Route::get('/create', [AdminController::class, 'createBulletin'])->name('create');
             Route::post('/', [AdminController::class, 'storeBulletin'])->name('store');
             Route::post('/upload', [AdminController::class, 'uploadBulletin'])->name('upload');
             Route::delete('/{id}', [AdminController::class, 'destroyBulletin'])->name('destroy');
-        });
+      
         
         // Messages
         Route::post('/message/send', [MessageController::class, 'send'])->name('message.send');
