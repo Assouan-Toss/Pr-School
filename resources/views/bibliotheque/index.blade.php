@@ -316,6 +316,11 @@
     }
 </style>
 </style>
+
+<!-- Ajouter un nouveau document si admin et professeur -->
+    @if(Auth::user()->role == 'admin' || Auth::user()->role == 'professeur')
+        <a href="{{ route('documents.create') }}" class="btn btn-primary">Ajouter nouveau document</a>
+    @endif
     <div class="library-shelf">
         <div class="books-container">
             @foreach($documents as $doc)
@@ -327,11 +332,10 @@
                             <div class="book-author">
                                 {{ $doc->auteur->name ?? '—' }}
                             </div>
-                            <a href="{{ route('documents.download', $doc->id) }}" 
-                               class="book-download-btn"
-                               download>
-                                 Télécharger
+                            <a href="{{ route('documents.download', $doc) }}">
+                                Télécharger
                             </a>
+
                         </div>
                         <div class="book-pages"></div>
                         <div class="book-bottom"></div>

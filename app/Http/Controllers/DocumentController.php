@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 class DocumentController extends Controller
 {
     /**
-     * Afficher le formulaire d'ajout de document
+     * Formulaire d'ajout
      */
     public function create()
     {
@@ -17,7 +17,7 @@ class DocumentController extends Controller
     }
 
     /**
-     * Enregistrer le document
+     * Enregistrer un document
      */
     public function store(Request $request)
     {
@@ -30,6 +30,7 @@ class DocumentController extends Controller
             'matiere_id' => 'nullable|exists:matieres,id',
         ]);
 
+        // Stockage correct sur le disque public
         $path = $request->file('fichier')->store('documents', 'public');
 
         Document::create([
@@ -52,32 +53,29 @@ class DocumentController extends Controller
      */
     public function download(Document $document)
     {
-        // Vérifier si le fichier existe
-        $path = Storage::disk('public')->path($document->file_path);
-        
+        // return Storage::disk('public')->exists($document->file_path);
+        // Vérifier existence du fichier
         if (!Storage::disk('public')->exists($document->file_path)) {
             abort(404, 'Fichier non trouvé');
         }
 
-        // Optionnel : Vérifier les permissions de visibilité
-        $userRole = auth()->user()->role ?? 'visiteur';
-        // Vérifier si l'utilisateur a le droit d'accéder au document
-        $allowedRoles = ['eleves', 'professeurs', 'tous'];
-        
-        if (!in_array($userRole, $allowedRoles) || 
-            !in_array($document->visible_pour, ['tous', $userRole])) {
+        // Vérifier la visibilité
+        $userRole = auth()->user()->role ?? null;
+
+        if (
+            $document->visible_pour !== 'tous' &&
+            $document->visible_pour !== $userRole
+        ) {
             abort(403, 'Accès non autorisé');
         }
 
-        // Récupérer le nom original du fichier si disponible
-        $originalName = $document->titre . '.' . pathinfo($path, PATHINFO_EXTENSION);
-        
+        // Nom du fichier téléchargé
+        $extension = pathinfo($document->file_path, PATHINFO_EXTENSION);
+        $filename = $document->titre . '.' . $extension;
+
         return Storage::disk('public')->download(
-            $document->file_path, 
-            $originalName,
-            [
-                'Content-Type' => 'application/octet-stream',
-            ]
+            $document->file_path,
+            $filename
         );
     }
 }

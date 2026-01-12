@@ -112,13 +112,25 @@ Route::middleware(['auth'])->group(function () {
         ->name('documents.download');
     
     // Routes réservées aux professeurs
+
     Route::middleware(['isProfesseur'])->group(function () {
-        Route::get('/documents/create', [DocumentController::class, 'create'])
+                    Route::get('/documents/create', [DocumentController::class, 'create'])
             ->name('documents.create');
         Route::post('/documents/store', [DocumentController::class, 'store'])
             ->name('documents.store');
+
     });
-    
+    //réserver aux admins
+
+
+
+    Route::middleware(['isAdmin'])->group(function () {
+                    Route::get('/documents/create', [DocumentController::class, 'create'])
+            ->name('documents.create');
+         Route::post('/documents/store', [DocumentController::class, 'store'])
+            ->name('documents.store');
+
+    });
     // ====================
     // ROUTES PAR RÔLE
     // ====================
@@ -145,9 +157,20 @@ Route::middleware(['auth'])->group(function () {
         // Gestion des documents
         Route::get('/documents/download/{id}', [AdminController::class, 'downloadDocument'])->name('documents.download');
         Route::post('/documents/upload', [AdminController::class, 'uploadDocument'])->name('documents.upload');
-        
+        //création de documents
+        Route::get('/documents/create', [AdminController::class, 'createDocument'])->name('documents.create');
         Route::get('/bibliotheque', [BibliothequeController::class, 'index'])->name('bibliotheque.index');
         Route::get('/documents/download/{id}', [BibliothequeController::class, 'download'])->name('documents.download');
+
+
+
+Route::get('/bibliotheque', [BibliothequeController::class, 'index'])
+    ->name('bibliotheque.index');
+
+Route::get('/documents/{document}/download', [DocumentController::class, 'download'])
+    ->name('documents.download');
+
+
         
         // Gestion des annonces
         Route::get('/annonces', [AdminController::class, 'annonces'])->name('annonces');
