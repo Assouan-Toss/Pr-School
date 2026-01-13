@@ -76,7 +76,6 @@ Route::middleware(['auth'])->group(function () {
     // ====================
     Route::prefix('annonces')->group(function () {
         Route::get('/', [AnnonceController::class, 'index'])->name('annonces.index');
-        Route::get('/{id}', [AnnonceController::class, 'show'])->name('annonces.show');
         
         // Routes réservées aux professeurs
         Route::middleware(['isProfesseur'])->group(function () {
@@ -86,6 +85,8 @@ Route::middleware(['auth'])->group(function () {
             Route::put('/{id}', [AnnonceController::class, 'update'])->name('annonces.update');
             Route::delete('/{id}', [AnnonceController::class, 'destroy'])->name('annonces.destroy');
         });
+
+        Route::get('/{id}', [AnnonceController::class, 'show'])->name('annonces.show');
     });
     
     // ====================
