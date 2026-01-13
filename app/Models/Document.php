@@ -17,6 +17,7 @@ class Document extends Model
         'publie_par',
         'classe_id',
         'matiere_id',
+        'type',
     ];
 
     public function auteur()

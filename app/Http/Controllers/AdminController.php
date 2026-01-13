@@ -96,12 +96,32 @@ class AdminController extends Controller
         return back()->with('success', 'Classe assignée au professeur.');
     }
 
-    /** POSTER DOCUMENT */
+
+    // ... (previous methods)
+
+    /** SUSPENDRE UTILISATEUR */
+    public function suspendUser($id)
+    {
+        $user = User::findOrFail($id);
+        $user->update(['is_suspended' => true]);
+        return back()->with('success', 'Utilisateur suspendu.');
+    }
+
+    /** ACTIVER UTILISATEUR */
+    public function activateUser($id)
+    {
+        $user = User::findOrFail($id);
+        $user->update(['is_suspended' => false]);
+        return back()->with('success', 'Utilisateur réactivé.');
+    }
+
+    /** POSTER DOCUMENT AVEC TYPE */
     public function uploadDocument(Request $request)
     {
         $request->validate([
             'titre' => 'required',
-            'file' => 'required|file'
+            'file' => 'required|file',
+            'type' => 'required|in:cours,roman,livre,autre'
         ]);
 
         $path = $request->file('file')->store('documents', 'public');
@@ -113,11 +133,13 @@ class AdminController extends Controller
             'visible_pour' => $request->visible_pour,
             'publie_par' => auth()->id(),
             'classe_id' => $request->classe_id,
-            'matiere_id' => $request->matiere_id
+            'matiere_id' => $request->matiere_id,
+            'type' => $request->type
         ]);
 
-        return back()->with('success', 'Document envoyé.');
+        return back()->with('success', 'Document ajouté.');
     }
+
 
     /** TELECHARGER DOCUMENT */
     public function downloadDocument($id)

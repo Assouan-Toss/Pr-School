@@ -110,34 +110,29 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/bibliotheque', [BibliothequeController::class, 'index'])
         ->name('bibliotheque.index');
     
+    // Route UNIQUE pour le téléchargement
     Route::get('/documents/{document}/download', [DocumentController::class, 'download'])
         ->name('documents.download');
     
     // Routes réservées aux professeurs
-
     Route::middleware(['isProfesseur'])->group(function () {
-                    Route::get('/documents/create', [DocumentController::class, 'create'])
+        Route::get('/documents/create', [DocumentController::class, 'create'])
             ->name('documents.create');
         Route::post('/documents/store', [DocumentController::class, 'store'])
             ->name('documents.store');
-
     });
-    //réserver aux admins
 
-
-
+    // Routes réservées aux admins
     Route::middleware(['isAdmin'])->group(function () {
-                    Route::get('/documents/create', [DocumentController::class, 'create'])
-            ->name('documents.create');
-         Route::post('/documents/store', [DocumentController::class, 'store'])
-            ->name('documents.store');
-
+         // (Utilise les mêmes contrôleurs que prof ou admin dédié si besoin)
+         // Ici on peut garder les routes de création si elles sont différentes ou les partager
     });
+
     // ====================
     // ROUTES PAR RÔLE
     // ====================
     
-    // ADMIN - Doit être placé AVANT les routes paramétrées génériques
+    // ADMIN
     Route::middleware(['isAdmin'])->prefix('admin')->name('admin.')->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('dashboard');
         
@@ -156,35 +151,19 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/professeurs/assign-classe', [AdminController::class, 'assignClasse'])->name('professeurs.assign-classe');
         Route::post('/professeurs/assign-matiere', [AdminController::class, 'assignMatiere'])->name('professeurs.assign-matiere');
         
-        // Gestion des documents
-        Route::get('/documents/download/{id}', [AdminController::class, 'downloadDocument'])->name('documents.download');
+        // Gestion des documents (Administration)
         Route::post('/documents/upload', [AdminController::class, 'uploadDocument'])->name('documents.upload');
-        //création de documents
-        Route::get('/documents/create', [AdminController::class, 'createDocument'])->name('documents.create');
-        Route::get('/bibliotheque', [BibliothequeController::class, 'index'])->name('bibliotheque.index');
-        Route::get('/documents/download/{id}', [BibliothequeController::class, 'download'])->name('documents.download');
-
-
-
-Route::get('/bibliotheque', [BibliothequeController::class, 'index'])
-    ->name('bibliotheque.index');
-
-Route::get('/documents/{document}/download', [DocumentController::class, 'download'])
-    ->name('documents.download');
-
-
+        // Route::get('/documents/create', [AdminController::class, 'createDocument'])->name('documents.create');
         
         // Gestion des annonces
         Route::get('/annonces', [AdminController::class, 'annonces'])->name('annonces');
         
         // Gestion des bulletins 
-        
-            Route::get('/bulletins', [AdminController::class, 'bulletins'])->name('bulletins.index');
-            Route::get('/create', [AdminController::class, 'createBulletin'])->name('create');
-            Route::post('/', [AdminController::class, 'storeBulletin'])->name('store');
-            Route::post('/upload', [AdminController::class, 'uploadBulletin'])->name('upload');
-            Route::delete('/{id}', [AdminController::class, 'destroyBulletin'])->name('destroy');
-      
+        Route::get('/bulletins', [AdminController::class, 'bulletins'])->name('bulletins.index');
+        Route::get('/create', [AdminController::class, 'createBulletin'])->name('create');
+        Route::post('/', [AdminController::class, 'storeBulletin'])->name('store');
+        Route::post('/upload', [AdminController::class, 'uploadBulletin'])->name('upload');
+        Route::delete('/{id}', [AdminController::class, 'destroyBulletin'])->name('destroy');
         
         // Messages
         Route::post('/message/send', [MessageController::class, 'send'])->name('message.send');
@@ -196,7 +175,6 @@ Route::get('/documents/{document}/download', [DocumentController::class, 'downlo
         Route::get('/eleves', [ProfesseurController::class, 'manageEleves'])->name('eleves');
         Route::get('/annonces', [ProfesseurController::class, 'annonces'])->name('annonces');
         
-        Route::get('/documents/download/{id}', [ProfesseurController::class, 'downloadDocument'])->name('documents.download');
         Route::post('/cours/add', [ProfesseurController::class, 'addCours'])->name('cours.add');
         Route::post('/message/send', [MessageController::class, 'send'])->name('message.send');
     });
@@ -206,7 +184,6 @@ Route::get('/documents/{document}/download', [DocumentController::class, 'downlo
         Route::get('/', [EleveController::class, 'index'])->name('dashboard');
         Route::get('/annonces', [EleveController::class, 'annonces'])->name('annonces');
         Route::get('/bulletins', [EleveController::class, 'bulletins'])->name('bulletins');
-        Route::get('/documents/download/{id}', [EleveController::class, 'downloadDocument'])->name('documents.download');
         
         Route::post('/message/send', [MessageController::class, 'send'])->name('message.send');
         

@@ -7,9 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Annonce extends Model
 {
     protected $fillable = [
-        'titre',
-        'contenu',
-        'user_id',
+        'titre', 'contenu', 'user_id', 'visible_pour', 'classe_id'
     ];
 
     public function auteur()

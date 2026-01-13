@@ -134,7 +134,7 @@
         bottom: 15px;
         left: 25px;
         right: 10px;
-        background: rgba(255, 255, 255, 0.9);
+        background: rgba(255, 255, 255, 0.95);
         color: #1B13AD;
         padding: 6px 10px;
         border-radius: 3px;
@@ -142,15 +142,16 @@
         font-weight: bold;
         text-decoration: none;
         text-align: center;
-        opacity: 0;
-        transform: translateY(10px);
-        transition: all 0.3s ease;
-        z-index: 2;
+        opacity: 1; /* Always visible */
+        z-index: 100; /* High z-index */
+        transform: translateZ(50px); /* Move button out of the page */
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        backface-visibility: hidden; /* Ensure it stays visible */
     }
 
     .book:hover .book-download-btn {
-        opacity: 1;
-        transform: translateY(0);
+        background: #fff;
+        transform: translateZ(60px); /* Pop out even more on hover */
     }
 
     /* --- Variations de Couleurs (Boucle de 4) --- */

@@ -21,6 +21,11 @@ class DocumentController extends Controller
      */
     public function store(Request $request)
     {
+        // Autorisation : Admin ou Professeur
+        if (!in_array(auth()->user()->role, ['admin', 'professeur'])) {
+            abort(403, 'Accès non autorisé');
+        }
+
         $request->validate([
             'titre' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -53,29 +58,52 @@ class DocumentController extends Controller
      */
     public function download(Document $document)
     {
-        return Storage::disk('public')->exists($document->file_path);
-        // Vérifier existence du fichier
-        if (!Storage::disk('public')->exists($document->file_path)) {
-            abort(404, 'Fichier non trouvé');
+        // Construction du chemin absolu
+        // storage_path('app/public') pointe vers /storage/app/public
+        $filePath = storage_path('app/public/' . $document->file_path);
+
+        // Vérification directe
+        if (!file_exists($filePath)) {
+            // Tentative de rattrapage si le chemin a été enregistré avec 'public/'
+            $filePathRetry = storage_path('app/' . $document->file_path);
+            if (file_exists($filePathRetry)) {
+                $filePath = $filePathRetry;
+            } else {
+                abort(404, "Le fichier est introuvable sur le serveur.\nChemin cherché : " . $filePath);
+            }
         }
 
         // Vérifier la visibilité
-        $userRole = auth()->user()->role ?? null;
+        $user = auth()->user();
+        $userRole = $user->role ?? null;
+        $canDownload = false;
 
-        if (
-            $document->visible_pour !== 'tous' &&
-            $document->visible_pour !== $userRole
-        ) {
-            abort(403, 'Accès non autorisé');
+        if ($document->visible_pour === 'tous') {
+            $canDownload = true;
+        } elseif ($document->visible_pour === $userRole) {
+            $canDownload = true;
+        } elseif ($document->visible_pour === 'classe' && $user->classe_id === $document->classe_id) {
+            $canDownload = true;
+        } elseif ($userRole === 'admin') {
+            $canDownload = true;
+        } elseif ($userRole === 'professeur' && $document->publie_par === $user->id) {
+             $canDownload = true;
         }
 
-        // Nom du fichier téléchargé
-        $extension = pathinfo($document->file_path, PATHINFO_EXTENSION);
-        $filename = $document->titre . '.' . $extension;
+        if (!$canDownload) {
+             abort(403, 'Accès non autorisé');
+        }
 
-        return Storage::disk('public')->download(
-            $document->file_path,
-            $filename
-        );
+        // Enregistrer l'historique
+        if (auth()->check()) {
+            \DB::table('document_downloads')->insert([
+                'user_id' => auth()->id(),
+                'document_id' => $document->id,
+                'downloaded_at' => now(),
+            ]);
+        }
+
+        // Téléchargement direct
+        return response()->download($filePath, $document->titre . '.' . pathinfo($filePath, PATHINFO_EXTENSION));
     }
 }
