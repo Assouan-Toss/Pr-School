@@ -24,7 +24,7 @@ class DocumentController extends Controller
         $request->validate([
             'titre' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'fichier' => 'required|file|mimes:pdf,doc,docx,ppt,pptx',
+            'file_path' => 'required|file|mimes:pdf,doc,docx,ppt,pptx',
             'visible_pour' => 'required|in:eleves,professeurs,tous',
             'classe_id' => 'nullable|exists:classes,id',
             'matiere_id' => 'nullable|exists:matieres,id',
@@ -53,7 +53,7 @@ class DocumentController extends Controller
      */
     public function download(Document $document)
     {
-        // return Storage::disk('public')->exists($document->file_path);
+        return Storage::disk('public')->exists($document->file_path);
         // Vérifier existence du fichier
         if (!Storage::disk('public')->exists($document->file_path)) {
             abort(404, 'Fichier non trouvé');

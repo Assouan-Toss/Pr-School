@@ -85,7 +85,7 @@
                                 <h5 class="mb-2" style="color: #1B13AD;">Glissez-déposez ou cliquez pour téléverser</h5>
                                 <p class="text-muted mb-3">Formats supportés: PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, JPG, PNG, ZIP</p>
                                 <input type="file" 
-                                       name="fichier" 
+                                       name="file_path" 
                                        id="fichier"
                                        class="form-control d-none"
                                        required
@@ -403,6 +403,9 @@
             card.classList.remove('border-primary', 'shadow-sm');
             card.style.backgroundColor = '';
         });
+
+        // Cacher le champ de téléversement 
+        // document.getElementById('fileUploadArea').style.display = 'none';
         
         // Sélectionner la carte cliquée
         const selectedCard = document.getElementById(value).closest('.card');
