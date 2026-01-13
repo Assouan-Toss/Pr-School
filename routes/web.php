@@ -93,6 +93,8 @@ Route::middleware(['auth'])->group(function () {
     // ====================
     Route::prefix('cours')->group(function () {
         Route::get('/', [CoursController::class, 'index'])->name('cours.index');
+        Route::get('/create', [CoursController::class, 'create'])->name('cours.create');
+        Route::post('/store', [CoursController::class, 'store'])->name('cours.store');
         Route::get('/{id}', [CoursController::class, 'show'])->name('cours.show');
         
         // Routes réservées aux professeurs

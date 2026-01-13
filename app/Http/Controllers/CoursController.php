@@ -24,6 +24,14 @@ class CoursController extends Controller
         return view('cours.create');
     }
 
+    // fonction pour cree les cours
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
     public function store(Request $request)
     {
         $request->validate([
