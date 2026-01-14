@@ -24,11 +24,11 @@ Route::get('/accueil', function () {
 })->name('accueil');
 
 Route::get('/about', function () {
-    return view('welcome');
+    return view('about');
 })->name('about');
 
 Route::get('/contact', function () {
-    return view('welcome');
+    return view('contact');
 })->name('contact');
 
 // Inscription des élèves
@@ -149,6 +149,7 @@ Route::middleware(['auth'])->group(function () {
         
         // Gestion des professeurs
         Route::post('/professeurs/add', [AdminController::class, 'addProf'])->name('professeurs.add');
+        Route::delete('/professeurs/{id}', [AdminController::class, 'deleteProf'])->name('professeurs.delete');
         Route::post('/professeurs/assign-classe', [AdminController::class, 'assignClasse'])->name('professeurs.assign-classe');
         Route::post('/professeurs/assign-matiere', [AdminController::class, 'assignMatiere'])->name('professeurs.assign-matiere');
         

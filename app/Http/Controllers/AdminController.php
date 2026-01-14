@@ -66,6 +66,20 @@ class AdminController extends Controller
         return back()->with('success', 'Professeur ajouté.');
     }
 
+    /** SUPPRIMER PROFESSEUR */
+    public function deleteProf($id)
+    {
+        $user = User::findOrFail($id);
+        
+        // Vérification de sécurité (optionnelle mais recommandée)
+        if ($user->role !== 'professeur') {
+            return back()->with('error', 'Impossible de supprimer un utilisateur qui n\'est pas professeur.');
+        }
+
+        $user->delete();
+        return back()->with('success', 'Professeur supprimé.');
+    }
+
     /** AFFECTER MATIERE AU PROF */
     public function assignMatiere(Request $request)
     {
@@ -271,11 +285,8 @@ public function createClasses(Request $request)
 
     public function annonces()
     {
-        // Si vous avez un modèle Annonce
-        // $annonces = Annonce::all();
-        // return view('admin.annonces', compact('annonces'));
-        
-        return view('admin.annonces');
+        $annonces = \App\Models\Annonce::orderBy('created_at', 'desc')->get();
+        return view('admin.annonces', compact('annonces'));
     }
     
 

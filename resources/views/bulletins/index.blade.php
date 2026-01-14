@@ -8,6 +8,7 @@
     <h1 class="text-2xl font-bold text-[#1B13AD] mb-6">
         Bulletins scolaires
     </h1>
+    
 
     @if($bulletins->isEmpty())
         <div class="bg-white p-6 rounded shadow text-gray-500">
