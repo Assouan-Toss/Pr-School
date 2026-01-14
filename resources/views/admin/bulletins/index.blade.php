@@ -1,6 +1,4 @@
-@extends('layouts.admin')
-
-@section('title', 'Gestion des bulletins')
+@extends('layouts.app', ['title' => 'Dashboard Admin'])
 
 @section('content')
 <div class="p-6">

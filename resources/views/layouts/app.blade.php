@@ -154,7 +154,12 @@
                 <li class="side"><a href="/messages" class="block hover:text-[var(--bleu-clair)]"><img src="{{ asset('assets/icons8-message-50.png') }}" class="dachb" alt="messages">Messages</a></li>
                 <li class="side"><a href="/bibliotheque" class="block hover:text-[var(--bleu-clair)]"><img src="{{ asset('assets/icons8-books-50.png') }}" class="dachb" alt="bibliotheque">Bibliothèque</a></li>
                 <li class="side"><a href="/cours" class="block hover:text-[var(--bleu-clair)]"><img src="{{ asset('assets/icons8-book-50.png') }}" class="dachb" alt="cours">Cours</a></li>
-                <li class="side"><a href="/bulletins" class="block hover:text-[var(--bleu-clair)]"><img src="{{ asset('assets/icons8-quiz-48.png') }}" class="dachb" alt="resultats">Résultats</a></li>
+                
+                @if(auth()->check() && auth()->user()->role == 'eleve')
+                    <li class="side"><a href="{{ route('eleve.bulletins') }}" class="block hover:text-[var(--bleu-clair)]"><img src="{{ asset('assets/icons8-quiz-48.png') }}" class="dachb" alt="resultats">Résultats</a></li>
+                @elseif(auth()->check() && auth()->user()->role == 'admin')
+                    <li class="side"><a href="{{ route('admin.bulletins.index') }}" class="block hover:text-[var(--bleu-clair)]"><img src="{{ asset('assets/icons8-quiz-48.png') }}" class="dachb" alt="resultats">Bulletins</a></li>
+                @endif
 
                   <!-- FOOTER -->
         <div class="p-4 border-t border-blue-400">

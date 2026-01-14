@@ -168,9 +168,53 @@ class AdminController extends Controller
     // AFFICHER LES BULLETINS
     public function bulletins()
     {
-        return view('admin.bulletins', [
+        return view('admin.bulletins.index', [
             'bulletins' => Bulletin::all()
         ]);
+    }
+
+    /** FORMULAIRE CREATION BULLETIN */
+    public function createBulletin()
+    {
+        $eleves = User::where('role', 'eleve')->get();
+        $classes = Classe::all();
+        return view('admin.bulletins.create', compact('eleves', 'classes'));
+    }
+
+    /** ENREGISTRER BULLETIN */
+    public function storeBulletin(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:pdf,doc,docx,jpg,png|max:2048',
+            'eleve_id' => 'required|exists:users,id',
+            'semestre' => 'required'
+        ]);
+
+        $path = $request->file('file')->store('bulletins', 'public');
+
+        Bulletin::create([
+            'eleve_id' => $request->eleve_id,
+            'semestre' => $request->semestre,
+            'file_path' => $path,
+            'publie_par' => auth()->id()
+        ]);
+
+        return redirect()->route('admin.bulletins.index')->with('success', 'Bulletin publié.');
+    }
+
+    /** SUPPRIMER BULLETIN */
+    public function destroyBulletin($id)
+    {
+        $bulletin = Bulletin::findOrFail($id);
+        
+        // Supprimer le fichier physique
+        if (Storage::disk('public')->exists($bulletin->file_path)) {
+            Storage::disk('public')->delete($bulletin->file_path);
+        }
+
+        $bulletin->delete();
+
+        return back()->with('success', 'Bulletin supprimé.');
     }
     /** GERER ÉLÈVES */
     public function manageEleves()

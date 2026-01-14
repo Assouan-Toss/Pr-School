@@ -24,8 +24,10 @@
                             <p class="card-text text-muted">
                                 Publié le {{ $bulletin->created_at->format('d/m/Y') }}
                             </p>
-                            <a href="{{ Storage::url($bulletin->file_path) }}" class="btn btn-outline-primary btn-block" download>
-                                <i class="fas fa-download"></i> Télécharger
+                            <a href="{{ asset('storage/' . $bulletin->file_path) }}" 
+                               target="_blank"
+                               class="text-blue-600 hover:text-blue-800 font-semibold">
+                                Voir
                             </a>
                         </div>
                     </div>
