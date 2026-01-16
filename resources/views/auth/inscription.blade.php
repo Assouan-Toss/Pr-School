@@ -335,6 +335,18 @@
                 </div>
             </div>
 
+            <!-- Privacy Policy -->
+            <div class="form-group" style="display: flex; align-items: center; gap: 10px;">
+                <input type="checkbox" 
+                       name="privacy_policy" 
+                       required 
+                       id="privacy_policy"
+                       style="width: 20px; height: 20px; accent-color: #3D80DB;">
+                <label for="privacy_policy" style="font-size: 14px; color: #444; cursor: pointer;">
+                    J'accepte la <a href="{{ route('about') }}#privacy-policy" target="_blank" style="color: #3D80DB; text-decoration: none; font-weight: 600;">politique de confidentialité</a>
+                </label>
+            </div>
+
             <!-- Bouton de soumission -->
             <button type="submit" class="submit-btn">
                 Créer mon compte

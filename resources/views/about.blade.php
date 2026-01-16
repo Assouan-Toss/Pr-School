@@ -45,10 +45,19 @@
                 pour rapprocher élèves, professeurs et l'administration.
             </p>
             <br>
+            <br>
             <h2>Notre Vision</h2>
             <p>
                 Nous croyons que chaque enfant a le potentiel de réussir si on lui donne les bons outils. 
                 Notre objectif est de fournir un environnement numérique intuitif et motivant.
+            </p>
+            <br>
+            <h2 id="privacy-policy">Politique de Confidentialité</h2>
+            <p>
+                Chez PréSchool, la confidentialité de vos données est notre priorité. 
+                Nous collectons uniquement les informations nécessaires au bon fonctionnement de la plateforme éducative. 
+                Vos données ne sont jamais partagées avec des tiers sans votre consentement explicite. 
+                En utilisant notre service, vous acceptez notre traitement des données conformément à la législation en vigueur.
             </p>
         </div>
 

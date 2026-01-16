@@ -29,6 +29,7 @@ class RegisterEleveController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
             'classe_id' => 'required|exists:classes,id',
+            'privacy_policy' => 'accepted',
         ]);
 
         User::create([
