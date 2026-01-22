@@ -75,7 +75,7 @@
                                 <i class="fas fa-paperclip me-2"></i>Fichier
                                 <span class="text-danger">*</span>
                             </label>
-                            <div class="file-upload-area border rounded-3 p-4 text-center @error('fichier') border-danger @enderror"
+                            <div class="file-upload-area border rounded-3 p-4 text-center @error('file_path') border-danger @enderror"
                                  style="border-style: dashed !important; border-color: #3D80DB; background-color: #f8f9fa; cursor: pointer;"
                                  onclick="document.getElementById('fichier').click()"
                                  id="fileUploadArea">
@@ -102,7 +102,7 @@
                                     </span>
                                 </div>
                             </div>
-                            @error('fichier')
+                            @error('file_path')
                                 <div class="invalid-feedback d-block mt-2">
                                     <i class="fas fa-exclamation-circle me-1"></i>{{ $message }}
                                 </div>
