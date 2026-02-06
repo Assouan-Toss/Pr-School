@@ -91,7 +91,7 @@ body {
     align-items: center;
     justify-content: center;
     height: 80vh;
-    background-image: url("/assets/lygbeko.jpg");
+    background-image: url("/assets/Lecture de _L'Enfant Noir_ ensemble.png");
     background-size: cover;
     background-position: center;
     border: 2px solid #3D80DB;
@@ -120,14 +120,29 @@ body {
 }
 
 .hero h1 {
-    color: #1B13AD;
-    font-size: 3em;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+
+  font-size: 5em;
+  margin-bottom: 20px;
+  background: linear-gradient(90deg, #1B13AD, #3D80DB, #1B13AD);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientMove 3s linear infinite;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+
+
 }
 
 .hero p {
-    color: #333;
+    color: #000000;
     font-size: 1.5em;
     margin-bottom: 30px;
     max-width: 800px;
@@ -135,7 +150,7 @@ body {
 }
 
 .inscription {
-    background-color: transparent;
+    background-color: rgba(255, 255, 255, 0.582);
     color: white;
     border: 2px solid #1B13AD;
     border-radius: 10px;
@@ -188,6 +203,14 @@ h2 {
     color: #1B13AD;
     margin: 0 0 15px 0;
     font-size: 1.8em;
+    border-bottom: 2px solid #3D80DB;
+    padding-bottom: 10px;
+}
+
+h3 {
+    color: #1B13AD;
+    margin: 0 0 15px 0;
+    /* font-size: 1.8em; */
     border-bottom: 2px solid #3D80DB;
     padding-bottom: 10px;
 }
@@ -306,20 +329,43 @@ footer p {
 
 
 
+
+
+
 .carousel-container {
   display: flex;
-  overflow-x: scroll; /* Défilement horizontal */
-  scroll-snap-type: x mandatory;
+  overflow: hidden;              /* Cache le débordement */
   gap: 10px;
+  width: 100%;
 }
-.carousel-container img {
-  flex-shrink: 0;
-  /*Empêche les images de rétrécir*/width: 200px;
-  /*Ou une largeur fixe par image*/scroll-snap-align: start;
-  transform: translateX(0);
-  height: 300px;
-  /*gap: 10px;
-  */border: 2px solid #3D80DB;
-  border-radius: 10px;
 
+.carousel-track {
+  display: flex;
+  gap: 10px;
+  animation: scroll 20s linear infinite;
 }
+
+/* Pause au survol */
+.carousel-container:hover .carousel-track {
+  animation-play-state: paused;
+}
+
+.carousel-track img {
+  flex-shrink: 0;
+  width: 200px;
+  height: 300px;
+  border: 2px solid #3D80DB;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* Animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+

@@ -34,7 +34,7 @@
 
         <section class="hero" style="height: 40vh; min-height: 300px;">
             <h1>À propos de PréSchool</h1>
-            <p>Notre mission : accompagner chaque élève vers la réussite.</p>
+            <p>Notre mission : faciliter la réussite de chaque élève.</p>
         </section>
 
         <div class="content-section">

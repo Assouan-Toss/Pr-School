@@ -38,7 +38,7 @@
                 <div class="events">
                     <img src="{{ asset('assets/Gemini_Generated.png') }}" alt="Evénements">
                     <img src="{{ asset('assets/image_3D.png') }}" alt="Evénements">
-                    <h2>Mise a jour des informations d'evenements</h2>
+                    <h3>Mise a jour des informations d'evenements</h3>
                     <p>Les élèves seront au courant des événements scolaires ainsi que les dates et programmes</p>
                 </div>
             </div>
@@ -48,7 +48,7 @@
                 <div class="examens1">
                     <img src="{{ asset('assets/sout4.jpg') }}" alt="Examens">
                     <img src="{{ asset('assets/sout3.jpg') }}" alt="Examens">
-                    <h2>Mise a jour des informations d'examens</h2>
+                    <h3>Mise a jour des informations d'examens</h3>
                     <p>Les dates des examens et concours de l'année scolaire</p>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                 <div class="bulletins1">
                     <img src="{{ asset('assets/images1.jpg') }}" alt="Bulletins">
                     <img src="{{ asset('assets/images.jpg') }}" alt="Bulletins">
-                    <h2>Mise a jour des bulletins</h2>
+                    <h3>Mise a jour des bulletins</h3>
                     <p>Les notes et evaluations des eleves</p>
                 </div>
             </div>
@@ -75,22 +75,42 @@
                 </div>
         </div> -->
 
-        <h1>Romans</h1>
-      <div class="carousel-container">
-            <img src="{{ asset('assets/images3.jpeg') }}" alt="Image 1">
-            <img src="{{ asset('assets/images2.jpeg') }}" alt="Image 2">
-            <img src="{{ asset('assets/téléchargement4.jpeg') }}" alt="Image 3">
-            <img src="{{ asset('assets/images5.jpeg') }}" alt="Image 4">
-            <img src="{{ asset('assets/téléchargement1.jpeg') }}" alt="Image 5">
-            <img src="{{ asset('assets/images6.jpeg') }}" alt="Image 6">
-            <img src="{{ asset('assets/images1.jpeg') }}" alt="Image 7">
-            <img src="{{ asset('assets/images.jpeg') }}" alt="Image 8">
-            <img src="{{ asset('assets/téléchargement5.jpeg') }}" alt="Image 9">
-            <img src="{{ asset('assets/téléchargement3.jpeg') }}" alt="Image 10">
-    </div>
+<h1>Romans</h1>
+
+<div class="carousel-container">
+  <div class="carousel-track">
+    <img src="{{ asset('assets/images3.jpeg') }}" alt="Image 1">
+    <img src="{{ asset('assets/images2.jpeg') }}" alt="Image 2">
+    <img src="{{ asset('assets/téléchargement4.jpeg') }}" alt="Image 3">
+    <img src="{{ asset('assets/images5.jpeg') }}" alt="Image 4">
+    <img src="{{ asset('assets/téléchargement1.jpeg') }}" alt="Image 5">
+    <img src="{{ asset('assets/images6.jpeg') }}" alt="Image 6">
+    <img src="{{ asset('assets/images1.jpeg') }}" alt="Image 7">
+    <img src="{{ asset('assets/images.jpeg') }}" alt="Image 8">
+    <img src="{{ asset('assets/téléchargement5.jpeg') }}" alt="Image 9">
+    <img src="{{ asset('assets/téléchargement3.jpeg') }}" alt="Image 10">
+
+    <!-- Duplication pour défilement infini -->
+    <img src="{{ asset('assets/images3.jpeg') }}" alt="Image 1">
+    <img src="{{ asset('assets/images2.jpeg') }}" alt="Image 2">
+    <img src="{{ asset('assets/téléchargement4.jpeg') }}" alt="Image 3">
+    <img src="{{ asset('assets/images5.jpeg') }}" alt="Image 4">
+    <img src="{{ asset('assets/téléchargement1.jpeg') }}" alt="Image 5">
+    <img src="{{ asset('assets/images6.jpeg') }}" alt="Image 6">
+    <img src="{{ asset('assets/images1.jpeg') }}" alt="Image 7">
+    <img src="{{ asset('assets/images.jpeg') }}" alt="Image 8">
+    <img src="{{ asset('assets/téléchargement5.jpeg') }}" alt="Image 9">
+    <img src="{{ asset('assets/téléchargement3.jpeg') }}" alt="Image 10">
+  </div>
+</div>
+
 
 
         <footer>
-            <p>&copy; 2023 PréSchool. Tous droits réservés.</p>
+            <!-- liens en icônes -->
+            <!-- <a href="{{ route('accueil') }}"><i class="fas fa-home"></i> Accueil</a>
+            <a href="{{ route('about') }}"><i class="fas fa-info-circle"></i> À propos</a>
+            <a href="{{ route('contact') }}"><i class="fas fa-envelope"></i> Contact</a></br> -->
+            <p>&copy; 2026 PréSchool. Tous droits réservés.</p>
         </footer>
     </body>

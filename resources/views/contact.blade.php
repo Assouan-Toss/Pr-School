@@ -90,7 +90,7 @@
         </div>
 
         <footer>
-            <p>&copy; 2023 PréSchool. Tous droits réservés.</p>
+            <p>&copy; 2026 PréSchool. Tous droits réservés.</p>
         </footer>
     </body>
 </html>
