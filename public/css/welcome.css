@@ -123,7 +123,7 @@ body {
 
   font-size: 5em;
   margin-bottom: 20px;
-  background: linear-gradient(90deg, #1B13AD, #3D80DB, #1B13AD);
+  background: linear-gradient(90deg, #1B13AD, #3D80DB, #3d7fdb28);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
