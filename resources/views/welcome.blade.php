@@ -24,7 +24,7 @@
         <section class="hero">
 
             <h1>Bienvenue sur PréSchool</h1>
-            <p>PréSchool est une plate-forme web conçu pour aider les élèves en difficulté.</p>
+            <p><strong>PréSchool est une plate-forme web conçu pour aider les élèves en difficulté.</strong></p>
 
 <button class="inscription">
     <a href="{{ route('eleve.register') }}" style="text-decoration: none;">Inscription</a>

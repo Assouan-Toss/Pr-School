@@ -142,12 +142,25 @@ body {
 }
 
 .hero p {
-    color: #000000;
-    font-size: 1.5em;
-    margin-bottom: 30px;
-    max-width: 800px;
-    font-weight: 500;
+  color: #1c1c1d;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+  animation: slideFade 2s ease-out forwards;
 }
+
+@keyframes slideFade {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
 
 .inscription {
     background-color: rgba(255, 255, 255, 0.582);
@@ -331,7 +344,7 @@ footer p {
 
 
 
-
+/* animation carousel images  */
 .carousel-container {
   display: flex;
   overflow: hidden;              /* Cache le débordement */
@@ -343,6 +356,7 @@ footer p {
   display: flex;
   gap: 10px;
   animation: scroll 20s linear infinite;
+  -webkit-animation: scroll 20s linear infinite;
 }
 
 /* Pause au survol */
@@ -366,6 +380,10 @@ footer p {
   }
   100% {
     transform: translateX(-50%);
-  }
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+}
 }
 

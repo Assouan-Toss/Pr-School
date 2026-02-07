@@ -38,16 +38,16 @@
                                 {{ $bulletin->eleve->name }}
                             </td>
                             <td class="p-3">
-                                {{ $bulletin->classe->nom }}
+                                {{ $bulletin->eleve->classe->nom ?? 'Non assigné' }}
                             </td>
                             <td class="p-3">
-                                {{ $bulletin->periode }}
+                                {{ $bulletin->semestre }}
                             </td>
                             <td class="p-3 font-semibold">
-                                {{ $bulletin->moyenne ?? '-' }}
+                                {{ $bulletin->moyenne ? $bulletin->moyenne . '/20' : '-' }}
                             </td>
                             <td class="p-3">
-                                <a href="{{ asset('storage/'.$bulletin->fichier) }}"
+                                <a href="{{ asset('storage/'.$bulletin->file_path) }}"
                                    target="_blank"
                                    class="text-[#3D80DB] hover:underline">
                                     Télécharger

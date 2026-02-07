@@ -29,14 +29,14 @@ class DocumentController extends Controller
         $request->validate([
             'titre' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'file_path' => 'required|file|mimes:pdf,doc,docx,ppt,pptx,xls,xlsx,jpg,jpeg,png,zip,rar|max:20480', // 20MB max
+            'file' => 'required|file|mimes:pdf,doc,docx,ppt,pptx,xls,xlsx,jpg,jpeg,png,zip,rar|max:20480', // 20MB max
             'visible_pour' => 'required|in:eleves,professeurs,tous',
             'classe_id' => 'nullable|exists:classes,id',
             'matiere_id' => 'nullable|exists:matieres,id',
         ]);
 
         // Stockage correct sur le disque public
-        $path = $request->file('file_path')->store('documents', 'public');
+        $path = $request->file('file')->store('documents', 'public');
 
         Document::create([
             'titre' => $request->titre,
@@ -94,14 +94,14 @@ class DocumentController extends Controller
              abort(403, 'Accès non autorisé');
         }
 
-        // Enregistrer l'historique
-        if (auth()->check()) {
-            \DB::table('document_downloads')->insert([
-                'user_id' => auth()->id(),
-                'document_id' => $document->id,
-                'downloaded_at' => now(),
-            ]);
-        }
+        // Enregistrer l'historique (table document_downloads à créer si nécessaire)
+        // if (auth()->check()) {
+        //     \DB::table('document_downloads')->insert([
+        //         'user_id' => auth()->id(),
+        //         'document_id' => $document->id,
+        //         'downloaded_at' => now(),
+        //     ]);
+        // }
 
         // Téléchargement direct
         return response()->download($filePath, $document->titre . '.' . pathinfo($filePath, PATHINFO_EXTENSION));

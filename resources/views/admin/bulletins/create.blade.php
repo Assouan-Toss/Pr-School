@@ -36,10 +36,10 @@
         </div>
 
         <div>
-            <label class="block mb-1 font-semibold">Période</label>
+            <label class="block mb-1 font-semibold">Semestre</label>
             <input type="text"
-                   name="periode"
-                   placeholder="Ex: 1er trimestre"
+                   name="semestre"
+                   placeholder="Ex: 1er semestre"
                    required
                    class="w-full border rounded p-2">
         </div>
@@ -49,13 +49,14 @@
             <input type="number"
                    step="0.01"
                    name="moyenne"
+                   placeholder="Ex: 12.50"
                    class="w-full border rounded p-2">
         </div>
 
         <div>
             <label class="block mb-1 font-semibold">Fichier (PDF)</label>
             <input type="file"
-                   name="fichier"
+                   name="file"
                    accept="application/pdf"
                    required
                    class="w-full border rounded p-2">

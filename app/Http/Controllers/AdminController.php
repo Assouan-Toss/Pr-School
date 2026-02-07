@@ -172,8 +172,10 @@ class AdminController extends Controller
         Bulletin::create([
             'eleve_id' => $request->eleve_id,
             'semestre' => $request->semestre,
+            'moyenne' => $request->moyenne,
             'file_path' => $path,
-            'publie_par' => auth()->id()
+            'publie_par' => auth()->id(),
+            'classe_id' => $request->classe_id
         ]);
 
         return back()->with('success', 'Bulletin publié.');
@@ -209,8 +211,10 @@ class AdminController extends Controller
         Bulletin::create([
             'eleve_id' => $request->eleve_id,
             'semestre' => $request->semestre,
+            'moyenne' => $request->moyenne,
             'file_path' => $path,
-            'publie_par' => auth()->id()
+            'publie_par' => auth()->id(),
+            'classe_id' => $request->classe_id
         ]);
 
         return redirect()->route('admin.bulletins.index')->with('success', 'Bulletin publié.');

@@ -20,6 +20,11 @@ public function up(): void
 
         $table->string('semestre');
         $table->string('file_path');
+        
+        $table->foreignId('classe_id')
+              ->nullable()
+              ->constrained('classes')
+              ->nullOnDelete();
 
         $table->foreignId('publie_par')   // admin
               ->constrained('users')
