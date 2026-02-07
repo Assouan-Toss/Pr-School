@@ -68,7 +68,7 @@
 
         <div class="contact-info">
             <p>Email: <strong>contact@preschool.com</strong></p>
-            <p>Téléphone: <strong>+33 1 23 45 67 89</strong></p>
+            <p>Téléphone: <strong>+228 79 40 78 41</strong></p>
         </div>
 
         <div class="contact-form">
