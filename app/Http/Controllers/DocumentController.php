@@ -29,14 +29,14 @@ class DocumentController extends Controller
         $request->validate([
             'titre' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'file' => 'required|file|mimes:pdf,doc,docx,ppt,pptx,xls,xlsx,jpg,jpeg,png,zip,rar|max:20480', // 20MB max
+            'file_path' => 'required|file|mimes:pdf,doc,docx,ppt,pptx,xls,xlsx,jpg,jpeg,png,zip,rar|max:20480', // 20MB max
             'visible_pour' => 'required|in:eleves,professeurs,tous',
             'classe_id' => 'nullable|exists:classes,id',
             'matiere_id' => 'nullable|exists:matieres,id',
         ]);
 
         // Stockage correct sur le disque public
-        $path = $request->file('file')->store('documents', 'public');
+        $path = $request->file('file_path')->store('documents', 'public');
 
         Document::create([
             'titre' => $request->titre,

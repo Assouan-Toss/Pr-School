@@ -29,8 +29,12 @@ class AnnonceController extends Controller
             $user = auth()->user();
             $query->where(function($q) use ($user) {
                 $q->where('visible_pour', 'tous')
-                  ->orWhere('visible_pour', $user->role)
-                  ->orWhere('classe_id', $user->classe_id);
+                  ->orWhere('visible_pour', $user->role);
+                
+                // Only add classe_id condition if user has a classe_id
+                if ($user->classe_id) {
+                    $q->orWhere('classe_id', $user->classe_id);
+                }
             });
         }
 
